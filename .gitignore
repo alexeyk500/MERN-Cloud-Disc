@@ -3,6 +3,7 @@
 # dependencies
 /client/node_modules
 /client/public
+.idea
 /.pnp
 .pnp.js
 
