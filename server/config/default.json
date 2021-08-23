@@ -1,0 +1,4 @@
+{
+  "serverPort": 5000,
+  "dbUrl": "mongodb+srv://user:user@clouddisc.vgbey.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+}
