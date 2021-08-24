@@ -15,7 +15,7 @@ const start = async () => {
   try {
     await mongoose.connect(
       config.get('dbUrl'),
-      { useNewUrlParser: true, useUnifiedTopology: true }
+      { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }
     )
     app.listen(PORT, ()=>{
       console.log(`Server started on Port=${PORT}`)
