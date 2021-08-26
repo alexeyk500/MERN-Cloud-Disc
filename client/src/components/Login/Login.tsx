@@ -1,9 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Input from "../CommonComponents/Input/Input";
 import {InputEnum} from "../../type/types";
 import './Login.css'
 
 const Login = () => {
+
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+
   return (
     <div className='login__container'>
       <div className='login_title'>
@@ -11,11 +15,15 @@ const Login = () => {
       </div>
       <div className={'login__container_input'}>
         <Input
+          value = {email}
+          onChange = {setEmail}
           type={InputEnum.text}
           placeholder={'email ...'}
           customClassName='login__input_email'
         />
         <Input
+          value = {password}
+          onChange = {setPassword}
           type={InputEnum.text}
           placeholder={'password ...'}
           customClassName={'login__input_password'}
