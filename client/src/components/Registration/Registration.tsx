@@ -3,16 +3,21 @@ import Input from "../CommonComponents/Input/Input";
 import {InputEnum} from "../../type/types";
 import './Registration.css'
 import {userRegistrationApi} from "../../api/userApi";
+import PopUpInformation, {showPopup} from "../CommonComponents/PopUpInformation/PopUpInformation";
 
 const Registration: React.FC = () => {
 
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [repeatPassword, setRepeatPassword] = useState<string>('');
+
+  const [isShowPopUp, setIsShowPopUp] = useState<boolean>(false)
 
   const onClickRegistration = () => {
-    if (email && password) {
-      userRegistrationApi(email, password)
-    }
+    showPopup()
+    // if (email && password) {
+    //   userRegistrationApi(email, password)
+    // }
   }
 
   return (
@@ -35,17 +40,41 @@ const Registration: React.FC = () => {
           placeholder={'password ...'}
           customClassName={'registration__input_password'}
         />
+        <Input
+          value = {repeatPassword}
+          onChange = {setRepeatPassword}
+          type={InputEnum.text}
+          placeholder={'repeat password ...'}
+          customClassName={'registration__input_password'}
+        />
       </div>
       <div className={'registration__container_buttonEnter'}>
+        <div>
+          {
+            password !== '' || repeatPassword !== ''?
+              password === repeatPassword?
+                <div className={'registration__title_passwordIsCorrect'}>
+                  password is correct
+                </div>
+
+                : <div className={'registration__title_passwordsMismatch'}>
+                  passwords mismatch
+                </div>
+              : null
+          }
+        </div>
         <button
           className={'registration__button_enter'}
           onClick={onClickRegistration}
+          // onClick={()=>setIsShowPopUp(true)}
         >
-          Войти
+          Регистрация
         </button>
       </div>
-
-      </div>
+      {/*{*/}
+      {/*  isShowPopUp && <PopUpInformation />*/}
+      {/*}*/}
+    </div>
   );
 };
 

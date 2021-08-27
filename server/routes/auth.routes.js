@@ -15,7 +15,6 @@ router.post(
   body('password').not().isEmpty().trim().escape().isLength({min: 5, max: 12}),
   async (req, res) => {
     try {
-
       const errors = validationResult(req)
 
       if (!errors.isEmpty()) {
@@ -28,16 +27,16 @@ router.post(
       console.log('candidate', candidate)
 
       if (candidate) {
+        console.log('send - error with status(400)', ` User with email ${email} already exist`)
         return res.status(400).json({message: `User with email ${email} already exist`})
       }
 
-      const hashPassword = await bcryptjs.hash(password, 5);
+      const hashPassword = await bcrypt.hash(password, 5);
       const user = new User({email, password: hashPassword});
       await user.save();
       return res.json({message: 'User was created'})
 
     } catch (e) {
-      console.log(e)
       res.send({message: 'Server Error'})
     }
   })

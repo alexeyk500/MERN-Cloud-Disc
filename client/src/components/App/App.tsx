@@ -9,12 +9,12 @@ function App() {
   return (
     <div className='app'>
       <Navbar/>
-        <div className='mainContainer'>
-          <Switch>
-            <Route path='/registration' component={Registration} />
-            <Route path='/login' component={Login} />
-          </Switch>
-        </div>
+      <div className='mainContainer'>
+        <Switch>
+          <Route path='/registration' component={Registration} />
+          <Route path='/login' component={Login} />
+        </Switch>
+      </div>
     </div>
   );
 }
