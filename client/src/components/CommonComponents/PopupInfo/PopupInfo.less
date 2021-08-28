@@ -1,0 +1,50 @@
+@import '../../../utils/colors';
+
+.popup__container {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(102, 209, 212, 0.41);
+}
+
+.popup__messagebox {
+  display: flex;
+  padding: 32px 32px;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  width: 550px;
+  height: 350px;
+  background-color: #566885;
+  border-radius: 12px;
+}
+
+.popup__messageText {
+  display: flex;
+  margin-bottom: 16px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 26px;
+  color: @second-background-color;
+}
+
+.popup__button_ok {
+  width: 180px;
+  padding: 4px 0;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 26px;
+  color: @second-background-color;
+  background-color: @color-yes;
+  border: none;
+  border-radius: 4px;
+}

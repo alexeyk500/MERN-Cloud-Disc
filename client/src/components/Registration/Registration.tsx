@@ -3,7 +3,7 @@ import Input from "../CommonComponents/Input/Input";
 import {InputEnum} from "../../type/types";
 import './Registration.css'
 import {userRegistrationApi} from "../../api/userApi";
-import PopUpInformation, {showPopup} from "../CommonComponents/PopUpInformation/PopUpInformation";
+import PopupInfo, {showPopup} from "../CommonComponents/PopupInfo/PopupInfo";
 
 const Registration: React.FC = () => {
 
@@ -14,7 +14,7 @@ const Registration: React.FC = () => {
   const [isShowPopUp, setIsShowPopUp] = useState<boolean>(false)
 
   const onClickRegistration = () => {
-    showPopup()
+    showPopup('Пользователь зарегестрирован')
     // if (email && password) {
     //   userRegistrationApi(email, password)
     // }
@@ -72,7 +72,7 @@ const Registration: React.FC = () => {
         </button>
       </div>
       {/*{*/}
-      {/*  isShowPopUp && <PopUpInformation />*/}
+      {/*  isShowPopUp && <PopupInfo />*/}
       {/*}*/}
     </div>
   );

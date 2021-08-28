@@ -5,7 +5,6 @@ import {NavLink} from "react-router-dom";
 
 const Navbar:React.FC = () => {
   return (
-    <div className='input-container'>
       <div className='navbar'>
         <img src={logo} alt="" className='navbar__logo'/>
         <div className='navbar__header'>
@@ -22,7 +21,6 @@ const Navbar:React.FC = () => {
           </NavLink>
         </div>
       </div>
-    </div>
   );
 }
 

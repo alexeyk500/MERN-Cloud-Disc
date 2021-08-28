@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './PopUpInformation.css'
+import './PopupInfo.css'
 
 type PropsType = {
+  messageText?: string
   elementId: string
 }
 
-const PopUpInformation:React.FC <PropsType> = ({
+const PopupInfo:React.FC <PropsType> = ({
   elementId,
+  messageText,
 }) => {
   const div = document.getElementById(elementId);
   const onClickHidePopup = () => {
@@ -20,6 +22,9 @@ const PopUpInformation:React.FC <PropsType> = ({
   return (
     <div className={'popup__container'}>
       <div className={'popup__messagebox'}>
+        <div className={'popup__messageText'}>
+          {messageText}
+        </div>
           Я PopUp
         <button
           className={'popup__button_ok'}
@@ -32,12 +37,17 @@ const PopUpInformation:React.FC <PropsType> = ({
   );
 };
 
-export const showPopup = () => {
+export const showPopup = (messageText: string) => {
   const div = document.createElement('div');
   div.id = 'message' + new Date().getTime();
   const parent = document.getElementById('root');
   parent!.append(div);
-  ReactDOM.render(<PopUpInformation elementId={div.id}/>, div)
+  ReactDOM.render(
+    <PopupInfo
+      elementId={div.id}
+      messageText={messageText}
+    />, div
+  )
 }
 
-export default PopUpInformation;
+export default PopupInfo;
