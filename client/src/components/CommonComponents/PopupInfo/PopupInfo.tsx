@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import './PopupInfo.css'
 
@@ -11,21 +11,36 @@ const PopupInfo:React.FC <PropsType> = ({
   elementId,
   messageText,
 }) => {
-  const div = document.getElementById(elementId);
+  const [classesForContainer, setClassesForContainer] = useState(['popup__container']);
+  const [classesForMessageBox, setClassesForMessageBox] = useState(['popup__messagebox']);
+
+  useEffect(()=>{
+    setClassesForContainer([...classesForContainer, 'onShowContainer']);
+    setClassesForMessageBox([...classesForMessageBox, 'onShowMessageBox']);
+    // eslint-disable-next-line
+  },[])
+
+  setClassesForContainer([...classesForContainer, 'onShowContainer']);
+  setClassesForMessageBox([...classesForMessageBox, 'onShowMessageBox']);
+
+  const popup = document.getElementById(elementId);
   const onClickHidePopup = () => {
-    if (div) {
-      ReactDOM.unmountComponentAtNode(div);
-      div.parentNode?.removeChild(div);
+    if (popup) {
+      setClassesForContainer([...classesForContainer, 'onCloseContainer'])
+      setClassesForMessageBox([...classesForMessageBox, 'onCloseMessageBox'])
+      setTimeout(()=>{
+        ReactDOM.unmountComponentAtNode(popup);
+        popup.parentNode?.removeChild(popup);
+      },500)
     }
   }
 
   return (
-    <div className={'popup__container'}>
-      <div className={'popup__messagebox'}>
+    <div className={classesForContainer.join(' ')}>
+      <div className={classesForMessageBox.join(' ')}>
         <div className={'popup__messageText'}>
           {messageText}
         </div>
-          Я PopUp
         <button
           className={'popup__button_ok'}
           onClick={onClickHidePopup}
@@ -38,16 +53,19 @@ const PopupInfo:React.FC <PropsType> = ({
 };
 
 export const showPopup = (messageText: string) => {
-  const div = document.createElement('div');
-  div.id = 'message' + new Date().getTime();
+  const popup = document.createElement('div');
+  popup.id = 'message' + new Date().getTime();
   const parent = document.getElementById('root');
-  parent!.append(div);
+
+  if (parent) {
+    parent.append(popup);
+  }
+
   ReactDOM.render(
     <PopupInfo
-      elementId={div.id}
+      elementId={popup.id}
       messageText={messageText}
-    />, div
+    />, popup
   )
 }
 
-export default PopupInfo;

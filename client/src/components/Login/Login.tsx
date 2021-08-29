@@ -2,11 +2,16 @@ import React, {useState} from 'react';
 import Input from "../CommonComponents/Input/Input";
 import {InputEnum} from "../../type/types";
 import './Login.css'
+import {showPopup} from "../CommonComponents/PopupInfo/PopupInfo";
 
-const Login = () => {
+const Login:React.FC = () => {
 
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
+  const onClickButtonEnter = () => {
+    showPopup('Привет из Логина')
+  }
 
   return (
     <div className='login__container'>
@@ -32,11 +37,11 @@ const Login = () => {
       <div className={'login__container_buttonEnter'}>
         <button
           className={'login__button_enter'}
+          onClick={onClickButtonEnter}
         >
           Войти
         </button>
       </div>
-
     </div>
   );
 };

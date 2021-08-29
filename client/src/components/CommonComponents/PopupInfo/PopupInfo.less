@@ -9,7 +9,17 @@
   height: 100vh;
   align-items: center;
   justify-content: center;
-  background-color: rgba(102, 209, 212, 0.41);
+  background-color: @modal-background-color;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.onShowContainer {
+  opacity: 1;
+}
+
+.onCloseContainer {
+  opacity: 0;
 }
 
 .popup__messagebox {
@@ -22,6 +32,16 @@
   height: 350px;
   background-color: #566885;
   border-radius: 12px;
+  transition: 0.5s;
+  transform: scale(0);
+}
+
+.onShowMessageBox {
+  transform: scale(1);
+}
+
+.onCloseMessageBox {
+  transform: scale(0);
 }
 
 .popup__messageText {
