@@ -20,9 +20,6 @@ const PopupInfo:React.FC <PropsType> = ({
     // eslint-disable-next-line
   },[])
 
-  setClassesForContainer([...classesForContainer, 'onShowContainer']);
-  setClassesForMessageBox([...classesForMessageBox, 'onShowMessageBox']);
-
   const popup = document.getElementById(elementId);
   const onClickHidePopup = () => {
     if (popup) {
