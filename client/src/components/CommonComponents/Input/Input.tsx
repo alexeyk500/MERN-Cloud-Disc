@@ -1,9 +1,9 @@
 import React from 'react';
 import './Input.css'
-import {InputEnum} from "../../../type/types";
+import {InputTypeEnum} from "../../../type/types";
 
 type PropsType = {
-  type: InputEnum,
+  type: InputTypeEnum,
   value: string,
   onChange: (newValue: string)=>void,
   placeholder?: string,
@@ -11,7 +11,7 @@ type PropsType = {
 }
 
 const Input:React.FC <PropsType>= ({
-  type = InputEnum.text,
+  type = InputTypeEnum.text,
   value,
   onChange,
   placeholder,

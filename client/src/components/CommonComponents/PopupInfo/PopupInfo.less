@@ -31,7 +31,7 @@
   width: 550px;
   height: 350px;
   background-color: #566885;
-  border-radius: 12px;
+  border-radius: 24px;
   transition: 0.5s;
   transform: scale(0);
 }
@@ -54,7 +54,7 @@
   font-weight: bold;
   font-size: 22px;
   line-height: 26px;
-  color: @second-background-color;
+  color: @font-color;
 }
 
 .popup__button_ok {
@@ -63,8 +63,20 @@
   font-weight: bold;
   font-size: 22px;
   line-height: 26px;
-  color: @second-background-color;
+  color: @font-color-dark;
   background-color: @color-yes;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
+}
+
+.popup__button_alarm {
+  width: 180px;
+  padding: 4px 0;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 26px;
+  color: @font-color-dark;
+  background-color: @color-alarm;
+  border: none;
+  border-radius: 6px;
 }

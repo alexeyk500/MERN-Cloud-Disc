@@ -1,15 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import './PopupInfo.css'
+import {PopupTypeEnum} from "../../../type/types";
 
 type PropsType = {
-  messageText?: string
-  elementId: string
+  messageText?: string,
+  elementId: string,
+  popupType?: PopupTypeEnum,
 }
 
 const PopupInfo:React.FC <PropsType> = ({
   elementId,
   messageText,
+  popupType = PopupTypeEnum.info,
 }) => {
   const [classesForContainer, setClassesForContainer] = useState(['popup__container']);
   const [classesForMessageBox, setClassesForMessageBox] = useState(['popup__messagebox']);
@@ -39,7 +42,10 @@ const PopupInfo:React.FC <PropsType> = ({
           {messageText}
         </div>
         <button
-          className={'popup__button_ok'}
+          className={ popupType === PopupTypeEnum.info?
+            'popup__button_ok'
+            :'popup__button_alarm'
+          }
           onClick={onClickHidePopup}
         >
           Понятно
@@ -49,7 +55,7 @@ const PopupInfo:React.FC <PropsType> = ({
   );
 };
 
-export const showPopup = (messageText: string) => {
+export const showPopup = (popupType: PopupTypeEnum, messageText: string) => {
   const popup = document.createElement('div');
   popup.id = 'message' + new Date().getTime();
   const parent = document.getElementById('root');
@@ -61,6 +67,7 @@ export const showPopup = (messageText: string) => {
   ReactDOM.render(
     <PopupInfo
       elementId={popup.id}
+      popupType={popupType}
       messageText={messageText}
     />, popup
   )

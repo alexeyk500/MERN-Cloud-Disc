@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import Input from "../CommonComponents/Input/Input";
-import {InputEnum} from "../../type/types";
+import {InputTypeEnum} from "../../type/types";
 import './Registration.css'
-import {showPopup} from "../CommonComponents/PopupInfo/PopupInfo";
+import {userRegistrationApi} from "../../api/userApi";
 
 const Registration: React.FC = () => {
 
@@ -11,7 +11,7 @@ const Registration: React.FC = () => {
   const [repeatPassword, setRepeatPassword] = useState<string>('');
 
   const onClickRegistration = () => {
-    showPopup('Пользователь зарегестрирован')
+    userRegistrationApi(email, password).then(() =>{})
   }
 
   return (
@@ -23,21 +23,21 @@ const Registration: React.FC = () => {
         <Input
           value = {email}
           onChange = {setEmail}
-          type={InputEnum.text}
+          type={InputTypeEnum.text}
           placeholder={'email ...'}
           customClassName='registration__input_email'
         />
         <Input
           value = {password}
           onChange = {setPassword}
-          type={InputEnum.text}
+          type={InputTypeEnum.password}
           placeholder={'password ...'}
           customClassName={'registration__input_password'}
         />
         <Input
           value = {repeatPassword}
           onChange = {setRepeatPassword}
-          type={InputEnum.text}
+          type={InputTypeEnum.password}
           placeholder={'repeat password ...'}
           customClassName={'registration__input_password'}
         />

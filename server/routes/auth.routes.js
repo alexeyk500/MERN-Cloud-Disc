@@ -34,7 +34,7 @@ router.post(
       const hashPassword = await bcrypt.hash(password, 5);
       const user = new User({email, password: hashPassword});
       await user.save();
-      return res.json({message: 'User was created'})
+      return res.json({message: 'User with email ${email} was created'})
 
     } catch (e) {
       res.send({message: 'Server Error'})

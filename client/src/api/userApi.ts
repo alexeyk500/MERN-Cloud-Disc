@@ -1,4 +1,6 @@
 import axios from "axios";
+import {showPopup} from "../components/CommonComponents/PopupInfo/PopupInfo";
+import {PopupTypeEnum} from "../type/types";
 
 export const userRegistrationApi = async (email: string, password: string) => {
   try {
@@ -9,8 +11,14 @@ export const userRegistrationApi = async (email: string, password: string) => {
         password,
       }
     )
-    console.log(response.data.message)
+    showPopup(PopupTypeEnum.info, response.data.message)
   } catch (e) {
-    console.log(e.response.data.message)
+    if(e.message === 'Network Error'){
+      showPopup(PopupTypeEnum.alarm, e.name + ': ' + e.message)
+    } else {
+      console.log(e.response)
+      showPopup(PopupTypeEnum.alarm, e.response.data.message)
+    }
+
   }
 }

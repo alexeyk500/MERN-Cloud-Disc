@@ -5,7 +5,7 @@
   display: flex;
   padding: 32px;
   background-color: #1a1e27;
-  border-radius: 27px;
+  border-radius: 24px;
   filter: drop-shadow(4px 4px 4px rgba(92, 92, 92, 0.5));
 }
 .registration_title {
@@ -33,7 +33,7 @@
   font-weight: bold;
   font-size: 22px;
   line-height: 26px;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.5);
   border: none;
   border-radius: 6px;
   background-color: #566885;

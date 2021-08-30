@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Input from "../CommonComponents/Input/Input";
-import {InputEnum} from "../../type/types";
+import {InputTypeEnum, PopupTypeEnum} from "../../type/types";
 import './Login.css'
 import {showPopup} from "../CommonComponents/PopupInfo/PopupInfo";
 
@@ -10,7 +10,7 @@ const Login:React.FC = () => {
   const [password, setPassword] = useState<string>('');
 
   const onClickButtonEnter = () => {
-    showPopup('Привет из Логина')
+    showPopup(PopupTypeEnum.alarm, 'Привет из Логина')
   }
 
   return (
@@ -22,14 +22,14 @@ const Login:React.FC = () => {
         <Input
           value = {email}
           onChange = {setEmail}
-          type={InputEnum.text}
+          type={InputTypeEnum.text}
           placeholder={'email ...'}
           customClassName='login__input_email'
         />
         <Input
           value = {password}
           onChange = {setPassword}
-          type={InputEnum.text}
+          type={InputTypeEnum.password}
           placeholder={'password ...'}
           customClassName={'login__input_password'}
         />
