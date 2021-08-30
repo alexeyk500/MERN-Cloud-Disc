@@ -11,10 +11,11 @@
   border-top: none;
   border-left: none;
   border-right: none;
-  border-bottom: 1px solid #566885;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
   outline: none;
+  background-color: #1a1e27;
 }
 ::-webkit-input-placeholder {
-  color: rgba(86, 104, 133, 0.5);
+  color: rgba(255, 255, 255, 0.3);
 }
 /*# sourceMappingURL=Input.css.map */

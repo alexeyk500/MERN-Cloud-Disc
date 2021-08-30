@@ -4,9 +4,9 @@
   flex-direction: column;
   display: flex;
   padding: 32px;
-  background-color: #FFFFFF;
+  background-color: #1a1e27;
   border-radius: 27px;
-  filter: drop-shadow(4px 4px 4px rgba(92, 92, 92, 0.25));
+  filter: drop-shadow(4px 4px 4px rgba(92, 92, 92, 0.5));
 }
 .login_title {
   display: flex;
@@ -32,9 +32,9 @@
   font-weight: bold;
   font-size: 22px;
   line-height: 26px;
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.3);
   border: none;
-  border-radius: 12px;
+  border-radius: 6px;
   background-color: #566885;
 }
 .login__container_buttonEnter {
