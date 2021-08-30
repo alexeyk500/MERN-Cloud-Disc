@@ -1,16 +1,19 @@
 import React, {useState} from 'react';
 import Input from "../CommonComponents/Input/Input";
-import {InputTypeEnum, PopupTypeEnum} from "../../type/types";
-import './Login.css'
-import {showPopup} from "../CommonComponents/PopupInfo/PopupInfo";
+import {InputTypeEnum} from "../../type/types";
+import './Login.css';
+import {userLoginApi} from "../../api/userApi";
+import {useDispatch} from "react-redux";
 
 const Login:React.FC = () => {
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
+  const dispatch = useDispatch();
+
   const onClickButtonEnter = () => {
-    showPopup(PopupTypeEnum.alarm, 'Привет из Логина')
+    dispatch(userLoginApi(email, password));
   }
 
   return (

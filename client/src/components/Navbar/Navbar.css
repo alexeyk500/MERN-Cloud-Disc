@@ -18,6 +18,11 @@
 .navbar__login {
   margin-right: 20px;
 }
+.navbar__logout {
+  margin-right: 20px;
+  cursor: pointer;
+  text-decoration: none !important;
+}
 .navbar__registration {
   margin-right: 20px;
 }
