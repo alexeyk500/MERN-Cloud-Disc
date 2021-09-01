@@ -1,15 +1,22 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Navbar from "../Navbar/Navbar";
 import './app.css';
-import {Switch, Route} from "react-router-dom";
+import {Switch, Route, Redirect} from "react-router-dom";
 import Registration from "../Registration/Registration";
 import Login from "../Login/Login";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {StateType} from "../../strore/store";
+import {userAuthApi} from "../../api/userApi";
 
 function App() {
 
-  const isAuth = useSelector<StateType>(state => state.user.isAuth)
+  const dispatch = useDispatch();
+  const isAuth = useSelector<StateType>(state => state.user.isAuth);
+
+  useEffect(()=>{
+    dispatch(userAuthApi());
+    // eslint-disable-next-line
+  },[])
 
   return (
     <div className='app'>
@@ -20,6 +27,7 @@ function App() {
           <Switch>
             <Route path='/registration' component={Registration} />
             <Route path='/login' component={Login} />
+            <Redirect to='/login'/>
           </Switch>
         }
 

@@ -12,12 +12,13 @@ const Login:React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const onClickButtonEnter = () => {
+  const onClickButtonEnter = (event: React.MouseEvent) => {
+    event.preventDefault()
     dispatch(userLoginApi(email, password));
   }
 
   return (
-    <div className='login__container'>
+    <form className='login__container'>
       <div className='login_title'>
         Авторизация
       </div>
@@ -45,7 +46,7 @@ const Login:React.FC = () => {
           Войти
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 

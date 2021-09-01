@@ -1,9 +1,13 @@
 const Router = require('express');
-const User = require('../models/user.js');
+const User = require('../models/User.js');
 const bcrypt = require('bcryptjs');
 const config = require('config');
 const jwt = require('jsonwebtoken');
 const {check, body, validationResult} = require('express-validator');
+const authMiddleware = require('../middlewear/auth.middleware');
+const fileService = require('./../services/fileService');
+const File = require('./../models/File');
+
 
 const router = new Router;
 
@@ -34,12 +38,13 @@ router.post(
       const hashPassword = await bcrypt.hash(password, 5);
       const user = new User({email, password: hashPassword});
       await user.save();
-      return res.json({message: 'User with email ${email} was created'})
+      await fileService.createDir(new File({user: user.id, name:''}))
+      return res.json({message: `User with email ${email} was created`})
 
     } catch (e) {
       res.send({message: 'Server Error'})
     }
-  })
+  });
 
 router.post(
   '/login',
@@ -72,7 +77,31 @@ router.post(
       console.log(e)
       res.send({message: 'Server Error'})
     }
-  })
+  });
+
+router.get(
+  '/auth',
+  authMiddleware,
+  async (req, res) => {
+    try {
+      const user = await User.findOne({_id: req.user.id})
+      const token = jwt.sign({id: user.id}, config.get('secretKey'), {expiresIn: '4h'});
+
+      return res.json({
+        token,
+        user: {
+          id: user.id,
+          email: user.email,
+          diskSpace: user.diskSpace,
+          usedSpace: user.usedSpace,
+          userAvatar: user.userAvatar,
+        }
+      })
+    } catch (e) {
+      console.log(e)
+      res.send({message: 'Server Error'})
+    }
+  });
 
 module.exports = router;
 

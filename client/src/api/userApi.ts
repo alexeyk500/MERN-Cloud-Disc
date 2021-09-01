@@ -24,10 +24,10 @@ export const userRegistrationApi = async (email: string, password: string) => {
       showPopup(PopupTypeEnum.alarm, e.response.data.message)
     }
   }
-}
+};
 
 export const userLoginApi = (email: string, password: string) => {
-  return async (dispatch: Dispatch<AllActions>, getState: ()=>StateType) => {
+  return async (dispatch: Dispatch<AllActions>, getState: () => StateType) => {
     try {
       const response = await axios.post<LoginResponseType>(
         'http://localhost:5000/api/auth/login',
@@ -36,11 +36,10 @@ export const userLoginApi = (email: string, password: string) => {
           password,
         }
       )
-      console.log(response.data)
       dispatch(setUser(response.data.user))
       localStorage.setItem('token', response.data.token)
     } catch (e) {
-      if(e.message === 'Network Error'){
+      if (e.message === 'Network Error') {
         showPopup(PopupTypeEnum.alarm, e.name + ': ' + e.message)
       } else {
         console.log(e.response)
@@ -48,5 +47,29 @@ export const userLoginApi = (email: string, password: string) => {
       }
     }
   }
+};
 
-}
+export const userAuthApi = () => {
+  return async (dispatch: Dispatch<AllActions>, getState: ()=>StateType) => {
+    try {
+      const response = await axios.get<LoginResponseType>(
+        'http://localhost:5000/api/auth/auth',
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        }
+      )
+      dispatch(setUser(response.data.user))
+      localStorage.setItem('token', response.data.token)
+    } catch (e) {
+      if(e.message === 'Network Error'){
+        showPopup(PopupTypeEnum.alarm, e.name + ': ' + e.message)
+      } else {
+        console.log(e.response)
+        localStorage.removeItem('token')
+        showPopup(PopupTypeEnum.alarm, e.response.data.message)
+      }
+    }
+  }
+};

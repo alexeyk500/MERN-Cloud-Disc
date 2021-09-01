@@ -28,9 +28,10 @@ const Input:React.FC <PropsType>= ({
         onChange={setNewValue}
         placeholder={placeholder}
         className={'input-input'}
+        autoComplete={'on'}
       />
     </div>
   );
-};
+}
 
 export default Input;
