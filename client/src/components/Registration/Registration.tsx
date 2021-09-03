@@ -15,56 +15,59 @@ const Registration: React.FC = () => {
   }
 
   return (
-    <div className='registration__container'>
-      <div className='registration_title'>
-        Регистрация
-      </div>
-      <div className={'registration__container_input'}>
-        <Input
-          value = {email}
-          onChange = {setEmail}
-          type={InputTypeEnum.text}
-          placeholder={'email ...'}
-          customClassName='registration__input_email'
-        />
-        <Input
-          value = {password}
-          onChange = {setPassword}
-          type={InputTypeEnum.password}
-          placeholder={'password ...'}
-          customClassName={'registration__input_password'}
-        />
-        <Input
-          value = {repeatPassword}
-          onChange = {setRepeatPassword}
-          type={InputTypeEnum.password}
-          placeholder={'repeat password ...'}
-          customClassName={'registration__input_password'}
-        />
-      </div>
-      <div className={'registration__container_buttonEnter'}>
-        <div>
-          {
-            password !== '' || repeatPassword !== ''?
-              password === repeatPassword?
-                <div className={'registration__title_passwordIsCorrect'}>
-                  password is correct
-                </div>
-
-                : <div className={'registration__title_passwordsMismatch'}>
-                  passwords mismatch
-                </div>
-              : null
-          }
-        </div>
-        <button
-          className={'registration__button_enter'}
-          onClick={onClickRegistration}
-        >
+    <div className="registration__wrapper">
+      <form className='registration__container'>
+        <div className='registration_title'>
           Регистрация
-        </button>
-      </div>
+        </div>
+        <div className={'registration__container_input'}>
+          <Input
+            value = {email}
+            onChange = {setEmail}
+            type={InputTypeEnum.text}
+            placeholder={'email ...'}
+            customClassName='registration__input_email'
+          />
+          <Input
+            value = {password}
+            onChange = {setPassword}
+            type={InputTypeEnum.password}
+            placeholder={'password ...'}
+            customClassName={'registration__input_password'}
+          />
+          <Input
+            value = {repeatPassword}
+            onChange = {setRepeatPassword}
+            type={InputTypeEnum.password}
+            placeholder={'repeat password ...'}
+            customClassName={'registration__input_password'}
+          />
+        </div>
+        <div className={'registration__container_buttonEnter'}>
+          <div>
+            {
+              password !== '' || repeatPassword !== ''?
+                password === repeatPassword?
+                  <div className={'registration__title_passwordIsCorrect'}>
+                    password is correct
+                  </div>
+
+                  : <div className={'registration__title_passwordsMismatch'}>
+                    passwords mismatch
+                  </div>
+                : null
+            }
+          </div>
+          <button
+            className={'registration__button_enter'}
+            onClick={onClickRegistration}
+          >
+            Регистрация
+          </button>
+        </div>
+      </form>
     </div>
+
   );
 };
 

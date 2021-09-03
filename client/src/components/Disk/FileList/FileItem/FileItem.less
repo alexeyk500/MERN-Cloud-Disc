@@ -1,0 +1,35 @@
+@import "../../../../utils/colors";
+
+.fileItem{
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr 1fr 1fr 1fr;
+  margin: 10px 0;
+  border-bottom: 1px solid @font-color;
+  color: @font-color;
+  font-size: 18px;
+  line-height: 21px;
+  align-items: center;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  &__img {
+    justify-content: center;
+  }
+
+  &__name {
+    grid-column-start: 2;
+  }
+
+  &__date {
+    grid-column-start: 5;
+    justify-self: center;
+  }
+
+  &__size {
+    grid-column-start: 6;
+    justify-self: center;
+  }
+}
+

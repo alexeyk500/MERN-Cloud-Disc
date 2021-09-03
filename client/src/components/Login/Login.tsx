@@ -18,35 +18,38 @@ const Login:React.FC = () => {
   }
 
   return (
-    <form className='login__container'>
-      <div className='login_title'>
-        Авторизация
-      </div>
-      <div className={'login__container_input'}>
-        <Input
-          value = {email}
-          onChange = {setEmail}
-          type={InputTypeEnum.text}
-          placeholder={'email ...'}
-          customClassName='login__input_email'
-        />
-        <Input
-          value = {password}
-          onChange = {setPassword}
-          type={InputTypeEnum.password}
-          placeholder={'password ...'}
-          customClassName={'login__input_password'}
-        />
-      </div>
-      <div className={'login__container_buttonEnter'}>
-        <button
-          className={'login__button_enter'}
-          onClick={onClickButtonEnter}
-        >
-          Войти
-        </button>
-      </div>
-    </form>
+    <div className='login__wrapper'>
+      <form className='login__container'>
+        <div className='login_title'>
+          Авторизация
+        </div>
+        <div className={'login__container_input'}>
+          <Input
+            value = {email}
+            onChange = {setEmail}
+            type={InputTypeEnum.text}
+            placeholder={'email ...'}
+            customClassName='login__input_email'
+          />
+          <Input
+            value = {password}
+            onChange = {setPassword}
+            type={InputTypeEnum.password}
+            placeholder={'password ...'}
+            customClassName={'login__input_password'}
+          />
+        </div>
+        <div className={'login__container_buttonEnter'}>
+          <button
+            className={'login__button_enter'}
+            onClick={onClickButtonEnter}
+          >
+            Войти
+          </button>
+        </div>
+      </form>
+    </div>
+
   );
 };
 

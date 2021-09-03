@@ -1,0 +1,28 @@
+.fileItem {
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr 1fr 1fr 1fr;
+  margin: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 18px;
+  line-height: 21px;
+  align-items: center;
+}
+.fileItem:hover {
+  transform: scale(1.02);
+}
+.fileItem__img {
+  justify-content: center;
+}
+.fileItem__name {
+  grid-column-start: 2;
+}
+.fileItem__date {
+  grid-column-start: 5;
+  justify-self: center;
+}
+.fileItem__size {
+  grid-column-start: 6;
+  justify-self: center;
+}
+/*# sourceMappingURL=FileItem.css.map */

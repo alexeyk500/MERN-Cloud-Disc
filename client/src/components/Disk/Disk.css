@@ -1,0 +1,13 @@
+.disk {
+  margin-top: 64px;
+}
+.disk__buttons {
+  display: flex;
+}
+.disk__button_back {
+  margin-right: 32px;
+}
+.disk__button_create {
+  margin-right: 32px;
+}
+/*# sourceMappingURL=Disk.css.map */

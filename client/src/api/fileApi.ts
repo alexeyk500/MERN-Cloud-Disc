@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {Dispatch} from "redux";
-import {FileActions} from "../strore/reducerFile";
-import {LoginResponseType} from "./responseType";
+import {FileActions, SetFiles} from "../strore/reducerFile";
 
 export function getFiles(dirId: string | null) {
   return async (dispatch: Dispatch<FileActions>) => {
@@ -14,7 +13,8 @@ export function getFiles(dirId: string | null) {
           }
         }
       );
-      console.log('file response =', response)
+      console.log('file response =', response.data)
+      dispatch(SetFiles(response.data))
     } catch (e) {
       console.log(e.response.data.message)
     }

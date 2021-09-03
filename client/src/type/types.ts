@@ -1,7 +1,21 @@
 
+export enum fileTypeEnum {
+  file = 'file',
+  dir = 'dir',
+}
+
 export type FileType = {
-  type: string,
-  ref: 'File' | 'Dir',
+  _id: string,
+  name: string,
+  type: fileTypeEnum,
+  date: Date,
+  accessLink: string,
+  size: number,
+  path: string,
+  user:string,
+  parent: string,
+  childs: [{type: fileTypeEnum, ref: string}],
+  ref: string,
 }
 
 export type UserType = {
@@ -12,7 +26,6 @@ export type UserType = {
   avatar?: string,
   files: FileType,
 }
-
 
 export enum InputTypeEnum {
   text = 'text',
