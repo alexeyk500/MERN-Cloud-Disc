@@ -9,6 +9,17 @@ type PropsType = {
 }
 
 const FileItem:React.FC <PropsType>= ({file}) => {
+
+  const date = new Date(file.date).toLocaleDateString('en-GB', {
+    year : 'numeric',
+    month : 'numeric',
+    day : 'numeric',
+  }).split('/');
+
+  [date[0], date[1], date[2]] = [date[2], date[1], date[0]];
+
+  const dateStr = date.join('-');
+
   return (
     <div className='fileItem'>
       <img
@@ -20,7 +31,7 @@ const FileItem:React.FC <PropsType>= ({file}) => {
         {file.name}
       </div>
       <div className="fileItem__date">
-        {new Date(file.date).toLocaleDateString()}
+        {dateStr}
       </div>
       <div className="fileItem__size">
         {file.size}
