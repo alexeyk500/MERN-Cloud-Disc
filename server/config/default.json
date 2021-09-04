@@ -2,5 +2,6 @@
   "serverPort": 5000,
   "dbUrl": "mongodb+srv://user:user@clouddisc.vgbey.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
   "secretKey": "mern-secret-key-alexeyk500",
-  "filePath": "/Users/alexeyk500/My_Files_iMac/JS_Learninig/mern-cloud-disk/server/UsersFiles"
+  "filePath": "/Users/alexeyk500/WebstormProjects/MERN-Cloud-Disc/server/UsersFiles",
+  "filePathImac": "/Users/alexeyk500/My_Files_iMac/JS_Learninig/mern-cloud-disk/server/UsersFiles"
 }

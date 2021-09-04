@@ -1,13 +1,36 @@
 .disk {
   margin-top: 64px;
 }
+.disk__title {
+  font-size: 32px;
+  margin-bottom: 32px;
+}
 .disk__buttons {
   display: flex;
+  justify-content: space-between;
 }
 .disk__button_back {
+  width: 150px;
   margin-right: 32px;
+  padding: 6px 10px;
+  font-size: 18px;
+  background-color: #1a1e27;
+  border: none;
+  border-radius: 4px;
+}
+.disk__button_back:hover {
+  cursor: pointer;
 }
 .disk__button_create {
+  width: 150px;
   margin-right: 32px;
+  padding: 6px 10px;
+  font-size: 18px;
+  background-color: #1a1e27;
+  border: none;
+  border-radius: 4px;
+}
+.disk__button_create:hover {
+  cursor: pointer;
 }
 /*# sourceMappingURL=Disk.css.map */

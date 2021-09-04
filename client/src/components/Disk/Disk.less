@@ -3,16 +3,42 @@
 .disk {
   margin-top: 64px;
 
+  &__title {
+    font-size: 32px;
+    margin-bottom: 32px;
+  }
+
   &__buttons {
     display: flex;
+    justify-content: space-between;
   }
 
   &__button_back {
+    width: 150px;
     margin-right: 32px;
+    padding: 6px 10px;
+    font-size: 18px;
+    background-color: @second-background-color;
+    border: none;
+    border-radius: 4px;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   &__button_create {
+    width: 150px;
     margin-right: 32px;
+    padding: 6px 10px;
+    font-size: 18px;
+    background-color: @second-background-color;
+    border: none;
+    border-radius: 4px;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 

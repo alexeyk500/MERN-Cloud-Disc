@@ -4,6 +4,8 @@ import {StateType} from "../../strore/store";
 import {getFiles} from "../../api/fileApi";
 import './Disk.css'
 import FileList from "./FileList/FileList";
+import PopUp from "../PopUp/PopUp";
+import {setPopUpDisplay} from "../../strore/reducerFile";
 
 const Disk:React.FC = () => {
 
@@ -15,18 +17,31 @@ const Disk:React.FC = () => {
     // eslint-disable-next-line
   },[currentDir])
 
+  function onClickButtonCreate() {
+    // const fileName = 'Folder-333'
+    // dispatch(createDir(currentDir, fileName))
+    console.log('click')
+    dispatch(setPopUpDisplay('flex'))
+  }
+
   return (
     <div className='disk'>
-      Disk
+      <div className="disk__title">
+        Disk
+      </div>
       <div className="disk__buttons">
         <button className="disk__button_back">
           Back
         </button>
-        <button className="disk__button_create">
+        <button
+          className="disk__button_create"
+          onClick={onClickButtonCreate}
+        >
           Create Folder
         </button>
       </div>
       <FileList />
+      <PopUp />
     </div>
   );
 };

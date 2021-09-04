@@ -1,5 +1,5 @@
 
-export enum fileTypeEnum {
+export enum FileTypeEnum {
   file = 'file',
   dir = 'dir',
 }
@@ -7,14 +7,14 @@ export enum fileTypeEnum {
 export type FileType = {
   _id: string,
   name: string,
-  type: fileTypeEnum,
+  type: FileTypeEnum,
   date: Date,
   accessLink: string,
   size: number,
   path: string,
   user:string,
   parent: string,
-  childs: [{type: fileTypeEnum, ref: string}],
+  childs: [{type: FileTypeEnum, ref: string}],
   ref: string,
 }
 
