@@ -5,7 +5,7 @@ import {getFiles} from "../../api/fileApi";
 import './Disk.css'
 import FileList from "./FileList/FileList";
 import PopUp from "../PopUp/PopUp";
-import {setPopUpDisplay} from "../../strore/reducerFile";
+import {popFromStack, setPopUpDisplay} from "../../strore/reducerFile";
 
 const Disk:React.FC = () => {
 
@@ -18,10 +18,11 @@ const Disk:React.FC = () => {
   },[currentDir])
 
   function onClickButtonCreate() {
-    // const fileName = 'Folder-333'
-    // dispatch(createDir(currentDir, fileName))
-    console.log('click')
     dispatch(setPopUpDisplay('flex'))
+  }
+
+  function onClickButtonBack() {
+      dispatch(popFromStack());
   }
 
   return (
@@ -30,7 +31,10 @@ const Disk:React.FC = () => {
         Disk
       </div>
       <div className="disk__buttons">
-        <button className="disk__button_back">
+        <button
+          className="disk__button_back"
+          onClick={onClickButtonBack}
+        >
           Back
         </button>
         <button

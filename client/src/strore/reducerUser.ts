@@ -1,6 +1,6 @@
 import {UserType} from "../type/types";
 
-const defaultState = {
+const defaultUserState = {
   currentUser: {},
   isAuth: false,
 }
@@ -21,7 +21,7 @@ export const logoutUser = ():logoutUserType  => ({type: LOGOUT_USER})
 
 export type UsersActions = setUserType | logoutUserType
 
-export default function reducerUser(state=defaultState, action: UsersActions){
+export default function reducerUser(state=defaultUserState, action: UsersActions): typeof defaultUserState {
   switch (action.type) {
     case SET_USER: {
       return {
