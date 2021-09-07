@@ -1,6 +1,6 @@
 
 export enum FileTypeEnum {
-  file = 'file',
+  file = 'jpg',
   dir = 'dir',
 }
 
