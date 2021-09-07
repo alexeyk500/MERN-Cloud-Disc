@@ -10,12 +10,14 @@
 
   &__buttons {
     display: flex;
+    align-items: center;
     justify-content: space-between;
   }
 
   &__button_back {
     width: 150px;
     margin-right: 32px;
+    margin-bottom: 16px;
     padding: 6px 10px;
     font-size: 18px;
     background-color: @second-background-color;
@@ -39,6 +41,21 @@
     &:hover {
       cursor: pointer;
     }
+  }
+
+  &__upload_label {
+    padding: 4px 10px;
+    font-size: 18px;
+    border: 1px dashed @font-color;
+    border-radius: 4px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__upload_input {
+    display: none;
   }
 }
 

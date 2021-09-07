@@ -1,20 +1,15 @@
 
-export enum FileTypeEnum {
-  file = 'jpg',
-  dir = 'dir',
-}
-
 export type FileType = {
   _id: string,
   name: string,
-  type: FileTypeEnum,
+  type: string,
   date: Date,
   accessLink: string,
   size: number,
   path: string,
   user:string,
   parent: string,
-  childs: [{type: FileTypeEnum, ref: string}],
+  childs: [{type: string, ref: string}],
   ref: string,
 }
 

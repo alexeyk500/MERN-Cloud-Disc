@@ -7,11 +7,13 @@
 }
 .disk__buttons {
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 .disk__button_back {
   width: 150px;
   margin-right: 32px;
+  margin-bottom: 16px;
   padding: 6px 10px;
   font-size: 18px;
   background-color: #1a1e27;
@@ -32,5 +34,17 @@
 }
 .disk__button_create:hover {
   cursor: pointer;
+}
+.disk__upload_label {
+  padding: 4px 10px;
+  font-size: 18px;
+  border: 1px dashed rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+}
+.disk__upload_label:hover {
+  cursor: pointer;
+}
+.disk__upload_input {
+  display: none;
 }
 /*# sourceMappingURL=Disk.css.map */

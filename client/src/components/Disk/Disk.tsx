@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {StateType} from "../../strore/store";
-import {getFiles} from "../../api/fileApi";
+import {getFiles, uploadFile} from "../../api/fileApi";
 import './Disk.css'
 import FileList from "./FileList/FileList";
 import PopUp from "../PopUp/PopUp";
@@ -25,24 +25,41 @@ const Disk:React.FC = () => {
       dispatch(popFromStack());
   }
 
+  function onChangeInputFile(event: React.ChangeEvent<any>) {
+    const files = [...event.target.files]
+    files.forEach(file=>{
+      dispatch(uploadFile(file, currentDir))
+    })
+  }
+
   return (
     <div className='disk'>
       <div className="disk__title">
         Disk
       </div>
+      <button
+        className="disk__button_back"
+        onClick={onClickButtonBack}
+      >
+        Back
+      </button>
       <div className="disk__buttons">
-        <button
-          className="disk__button_back"
-          onClick={onClickButtonBack}
-        >
-          Back
-        </button>
         <button
           className="disk__button_create"
           onClick={onClickButtonCreate}
         >
           Create Folder
         </button>
+        <div className="disk__upload">
+          <label htmlFor="disk__upload_input" className="disk__upload_label">Load File</label>
+          <input
+            type="file"
+            id="disk__upload_input"
+            className="disk__upload_input"
+            multiple={true}
+            onChange={onChangeInputFile}
+          />
+        </div>
       </div>
       <FileList />
       <PopUp />

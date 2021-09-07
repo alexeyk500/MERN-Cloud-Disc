@@ -1,5 +1,5 @@
 import React from 'react';
-import {FileType, FileTypeEnum} from "../../../../type/types";
+import {FileType} from "../../../../type/types";
 import './FileItem.css';
 import folderIco from './../../../../assets/img/folderIco.svg'
 import fileIco from './../../../../assets/img/fileIco.svg'
@@ -35,7 +35,7 @@ const FileItem:React.FC <PropsType>= ({file}) => {
       onClick={onClickFileItem}
     >
       <img
-        src={file.type === FileTypeEnum.dir? folderIco :fileIco}
+        src={file.type === 'dir'? folderIco :fileIco}
         className='fileItem__img'
         alt=""
       />
