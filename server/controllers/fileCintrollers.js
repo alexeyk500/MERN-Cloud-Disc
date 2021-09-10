@@ -25,7 +25,7 @@ class FileControllers {
       console.log(e)
       return res.status(400).json(e)
     }
-  }
+  };
 
   async getFiles(req, res) {
     try {
@@ -35,18 +35,13 @@ class FileControllers {
       console.log(e)
       return res.status(500).json({message: 'Can not get files'})
     }
-  }
+  };
 
   async uploadFile(req, res) {
     try {
       const file = req.files.file;
-      // console.log('file', file);
       const user = await User.findOne({_id: req.user.id})
-      // console.log('req.body.parent', req.body.parent)
       const parent = await File.findOne({user: req.user.id, _id: req.body.parent})
-
-      // console.log('user', user);
-      // console.log('parent', parent)
 
       if (user.usedSpace + file.size > user.diskSpace) {
         return res.status(400).json({message: 'There no space in the Disk'})
@@ -84,6 +79,19 @@ class FileControllers {
 
     } catch (e) {
       return res.status(500).json({message: 'Upload file error'})
+    }
+  };
+
+  async downloadFile(req, res) {
+    try {
+      const file = await File.findOne({_id: req.query.id, user:req.user.id});
+      const path = Config.get('filePath')+'/'+req.user.id+'/'+`${file.path.length > 0? file.path+'/' : ''}`+file.name;
+      if (fs.existsSync(path)) {
+        return res.download(path, file.name)
+      }
+      return res.status(400).json({message: 'Download file error'})
+    } catch (e) {
+      return res.status(500).json({message: 'Download file error'})
     }
   }
 

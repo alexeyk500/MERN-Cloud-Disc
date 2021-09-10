@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {Dispatch} from "redux";
 import {addFile, FileActions, SetFiles} from "../strore/reducerFile";
+import {FileType} from "../type/types";
 
 export function getFiles(dirId: string | null) {
   return async (dispatch: Dispatch<FileActions>) => {
@@ -13,13 +14,12 @@ export function getFiles(dirId: string | null) {
           }
         }
       );
-      console.log('file response =', response.data)
       dispatch(SetFiles(response.data))
     } catch (e) {
       console.log(e.response.data.message)
     }
   }
-}
+};
 
 export function createDir(dirId: string | null, name: string) {
   return async (dispatch: Dispatch<FileActions>) => {
@@ -45,7 +45,7 @@ export function createDir(dirId: string | null, name: string) {
       console.log(e.response.data.message)
     }
   }
-}
+};
 
 export function uploadFile(file: any, dirId: string | null) {
   return async (dispatch: Dispatch<FileActions>) => {
@@ -80,4 +80,27 @@ export function uploadFile(file: any, dirId: string | null) {
       console.log(e.response.data.message)
     }
   }
-}
+};
+
+export async function downloadFile (file: FileType) {
+  const response = await fetch(`http://localhost:5000/api/files/download?id=${file._id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    }
+  )
+  if (response.status === 200) {
+    response.blob().then((blob)=>{
+      const link = document.createElement('a')
+      link.href = window.URL.createObjectURL(blob)
+      link.download = file.name
+      document.body.appendChild(link)
+      link.click()
+      link.remove()
+    })
+  } else {
+    console.log('save file error')
+  }
+
+};

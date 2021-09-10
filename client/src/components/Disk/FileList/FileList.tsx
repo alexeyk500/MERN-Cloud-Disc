@@ -4,9 +4,15 @@ import {useSelector} from "react-redux";
 import {StateType} from "../../../strore/store";
 import FileItem from "./FileItem/FileItem";
 
-const FileList:React.FC = () => {
+const FileList: React.FC = () => {
 
-  const files = useSelector((state: StateType)=>state.file.files).map(file=><FileItem key={file._id} file={file}/>)
+  const files = useSelector((state: StateType) => state.file.files).map(
+    file =>
+      <FileItem
+        key={file._id}
+        file={file}
+      />
+  )
 
   // const file_1: FileType = {
   //   id: 'id_string',

@@ -31,5 +31,42 @@
     grid-column-start: 6;
     justify-self: center;
   }
+
+  &__btn {
+    display: none;
+  }
+
+  &:hover &__date {
+    grid-column-start: 3;
+  }
+
+  &:hover &__size {
+    grid-column-start: 4;
+  }
+
+  &:hover &__btn_download {
+    grid-column-start: 5;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    padding-bottom: 7px;
+    align-items: center;
+    justify-content: center;
+    background-color: @main-background-color;
+    border: none;
+  }
+
+  &:hover &__btn_delete {
+    grid-column-start: 6;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    padding-bottom: 7px;
+    align-items: center;
+    justify-content: center;
+    background-color: @main-background-color;
+    border: none;
+  }
+
 }
 

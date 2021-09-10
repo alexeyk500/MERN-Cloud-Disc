@@ -6,6 +6,10 @@ import fileIco from './../../../../assets/img/fileIco.svg'
 import {useDispatch} from "react-redux";
 import {pushToStack, setCurrentDir} from "../../../../strore/reducerFile";
 
+import buttonDownloadIco from './../../../../assets/img/buttonDownloadIco.svg';
+import buttonDeleteIco from './../../../../assets/img/buttonDeleteIco.svg'
+import {downloadFile} from "../../../../api/fileApi";
+
 type PropsType = {
   file: FileType
 }
@@ -29,6 +33,11 @@ const FileItem:React.FC <PropsType>= ({file}) => {
     dispatch(setCurrentDir(file._id));
   }
 
+  function onClickDownload(event: React.MouseEvent) {
+    event.stopPropagation()
+    downloadFile(file)
+  }
+
   return (
     <div
       className='fileItem'
@@ -48,6 +57,20 @@ const FileItem:React.FC <PropsType>= ({file}) => {
       <div className="fileItem__size">
         {file.size}
       </div>
+      {
+        file.type !== 'dir' &&
+        <button
+          className="fileItem__btn fileItem__btn_download"
+          onClick={onClickDownload}
+        >
+          <img src={buttonDownloadIco} alt=""/>
+        </button>
+      }
+      <button
+        className="fileItem__btn fileItem__btn_delete"
+      >
+        <img src={buttonDeleteIco} alt=""/>
+      </button>
     </div>
   );
 };
