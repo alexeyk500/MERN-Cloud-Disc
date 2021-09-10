@@ -47,4 +47,14 @@
 .disk__upload_input {
   display: none;
 }
+.drag_area {
+  width: 100%;
+  height: calc(100vh - 50px - 40px);
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed rgba(255, 255, 255, 0.5);
+  font-size: 32px;
+}
 /*# sourceMappingURL=Disk.css.map */
