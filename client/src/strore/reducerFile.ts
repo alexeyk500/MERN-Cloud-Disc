@@ -55,8 +55,17 @@ export const popFromStack = (): PopFromStackType => {
   return {type: POP_FROM_STACK}
 }
 
+export const DELETE_FILE = 'DELETE_FILE';
+type DeleteFileType = {
+  type: typeof DELETE_FILE,
+  payload: string,
+}
+export const deleteFileAction = (fileId: string): DeleteFileType => {
+  return {type: DELETE_FILE, payload: fileId}
+}
+
 export type FileActions = SetFilesType | SetCurrentDirType | AddDirType
-  | SetPopUpDisplayType | PushToStackType | PopFromStackType
+  | SetPopUpDisplayType | PushToStackType | PopFromStackType | DeleteFileType
 
 type DefaultStateType = {
   files: Array<FileType>,
@@ -100,7 +109,10 @@ export default function reducerFile(state=defaultState, action: FileActions):Def
       } else {
         return state
       }
+    }
 
+    case DELETE_FILE: {
+      return {...state, files: [...state.files.filter((file: FileType)=>file._id !== action.payload)]}
     }
 
     default: return state

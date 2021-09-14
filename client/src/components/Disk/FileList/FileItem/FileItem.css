@@ -44,6 +44,7 @@
   justify-content: center;
   background-color: #15181f;
   border: none;
+  cursor: pointer;
 }
 .fileItem:hover .fileItem__btn_delete {
   grid-column-start: 6;
@@ -55,5 +56,6 @@
   justify-content: center;
   background-color: #15181f;
   border: none;
+  cursor: pointer;
 }
 /*# sourceMappingURL=FileItem.css.map */

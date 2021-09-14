@@ -8,7 +8,7 @@ import {pushToStack, setCurrentDir} from "../../../../strore/reducerFile";
 
 import buttonDownloadIco from './../../../../assets/img/buttonDownloadIco.svg';
 import buttonDeleteIco from './../../../../assets/img/buttonDeleteIco.svg'
-import {downloadFile} from "../../../../api/fileApi";
+import {deleteFile, downloadFile} from "../../../../api/fileApi";
 
 type PropsType = {
   file: FileType
@@ -29,13 +29,20 @@ const FileItem:React.FC <PropsType>= ({file}) => {
   const dateStr = date.join('-');
 
   function onClickFileItem() {
-    dispatch(pushToStack(file._id));
-    dispatch(setCurrentDir(file._id));
+    if (file.type === 'dir') {
+      dispatch(pushToStack(file._id));
+      dispatch(setCurrentDir(file._id));
+    }
   }
 
   function onClickDownload(event: React.MouseEvent) {
-    event.stopPropagation()
+    event.stopPropagation();
     downloadFile(file)
+  }
+
+  function onClickDeleteFile(event: React.MouseEvent) {
+    event.stopPropagation();
+    dispatch(deleteFile(file))
   }
 
   return (
@@ -68,6 +75,7 @@ const FileItem:React.FC <PropsType>= ({file}) => {
       }
       <button
         className="fileItem__btn fileItem__btn_delete"
+        onClick={onClickDeleteFile}
       >
         <img src={buttonDeleteIco} alt=""/>
       </button>

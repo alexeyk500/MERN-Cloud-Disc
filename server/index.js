@@ -4,7 +4,7 @@ const config = require('config');
 const fileupload = require('express-fileupload');
 
 const authRouter = require('./routes/auth.routes.js');
-const fileRouter = require('./routes/file.routes.js');
+const fileRouter = require('./routes/file.routes');
 const corsMiddleware = require ('./../server/middlewear/cors.middleware.js');
 
 const app = express();

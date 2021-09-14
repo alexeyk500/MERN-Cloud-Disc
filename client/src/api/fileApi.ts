@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {Dispatch} from "redux";
-import {addFile, FileActions, SetFiles} from "../strore/reducerFile";
+import {addFile, deleteFileAction, FileActions, SetFiles} from "../strore/reducerFile";
 import {FileType} from "../type/types";
 
 export function getFiles(dirId: string | null) {
@@ -102,5 +102,23 @@ export async function downloadFile (file: FileType) {
   } else {
     console.log('save file error')
   }
+};
 
+export function deleteFile(file: FileType) {
+  return async (dispatch: Dispatch<FileActions>) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:5000/api/files/?id=${file._id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        }
+      );
+      dispatch(deleteFileAction(file._id));
+      alert(response.data.message)
+    } catch (e) {
+      console.log(e.response.data.message)
+    }
+  }
 };
