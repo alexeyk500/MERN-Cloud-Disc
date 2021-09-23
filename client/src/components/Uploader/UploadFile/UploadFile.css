@@ -9,6 +9,13 @@
   align-items: center;
   justify-content: space-between;
 }
+.upload-file__button-remove {
+  background-color: #1a1e27;
+  border: none;
+}
+.upload-file__button-remove:hover {
+  cursor: pointer;
+}
 .upload-file__progress-bar {
   display: flex;
   height: 0.8rem;

@@ -1,7 +1,8 @@
 import axios from 'axios';
 import {Dispatch} from "redux";
 import {addFile, deleteFileAction, FileActions, SetFiles} from "../strore/reducerFile";
-import {FileType} from "../type/types";
+import {FileType, UploadFileType} from "../type/types";
+import {addUploadFile, changeUploadFile, setUploaderVisible, UploadActions} from "../strore/reducerUpload";
 
 export function getFiles(dirId: string | null) {
   return async (dispatch: Dispatch<FileActions>) => {
@@ -48,13 +49,18 @@ export function createDir(dirId: string | null, name: string) {
 };
 
 export function uploadFile(file: any, dirId: string | null) {
-  return async (dispatch: Dispatch<FileActions>) => {
+  return async (dispatch: Dispatch<FileActions | UploadActions>) => {
     try {
       const formData = new FormData();
       formData.append('file', file);
       if (dirId) {
         formData.append('parent', dirId);
       }
+
+      const uploadFile: UploadFileType = {name: file.name, progress: 0, id: Date.now()};
+      dispatch(setUploaderVisible(true));
+      dispatch(addUploadFile(uploadFile))
+
       const response = await axios.post(
         `http://localhost:5000/api/files/upload`,
         formData,
@@ -68,6 +74,8 @@ export function uploadFile(file: any, dirId: string | null) {
             console.log('totalLength =', totalLength)
             if (totalLength) {
               const progress = Math.round(progressEvent.loaded*100/totalLength)
+              uploadFile.progress = progress
+              dispatch(changeUploadFile(uploadFile))
               console.log('progress =', progress)
             }
           }
