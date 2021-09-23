@@ -31,3 +31,9 @@ export enum PopupTypeEnum {
   info = 'info',
   alarm = 'alarm',
 }
+
+export type UploadFileType = {
+  id: number,
+  name: string,
+  progress: number,
+}

@@ -1,6 +1,5 @@
 import {FileType} from "../type/types";
 
-
 const SET_FILES = 'SET_FILES';
 type SetFilesType = {
   type: typeof SET_FILES,

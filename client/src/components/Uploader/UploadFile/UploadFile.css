@@ -1,0 +1,33 @@
+.upload-file {
+  border-radius: 8px;
+  background-color: #15181f;
+  margin-bottom: 8px;
+  padding: 4px 12px;
+}
+.upload-file__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.upload-file__progress-bar {
+  display: flex;
+  height: 0.8rem;
+  margin: 3px 0;
+  font-size: 0.75rem;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+.upload-file__percent {
+  position: absolute;
+  left: 50%;
+  color: #15181f;
+  font-size: 0.8rem;
+  line-height: 0.9rem;
+  font-weight: 600;
+}
+.upload-file__upload-bar {
+  width: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+}
+/*# sourceMappingURL=UploadFile.css.map */

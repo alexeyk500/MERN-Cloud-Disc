@@ -6,6 +6,7 @@ import './Disk.css'
 import FileList from "./FileList/FileList";
 import PopUp from "../PopUp/PopUp";
 import {popFromStack, setPopUpDisplay} from "../../strore/reducerFile";
+import Uploader from "../Uploader/Uploader";
 
 const Disk:React.FC = () => {
 
@@ -93,6 +94,7 @@ const Disk:React.FC = () => {
         </div>
         <FileList />
         <PopUp />
+        <Uploader />
       </div>
       :<div
         className="drag_area"
