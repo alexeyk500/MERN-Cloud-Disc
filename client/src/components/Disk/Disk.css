@@ -5,6 +5,34 @@
   font-size: 32px;
   margin-bottom: 32px;
 }
+.disk__button_first-row {
+  display: flex;
+  justify-content: space-between;
+}
+.disk__buttons_right {
+  display: flex;
+}
+.disk__button_list {
+  height: 33px;
+  width: 33px;
+  margin-right: 32px;
+  background-color: #1a1e27;
+  border: none;
+  border-radius: 4px;
+}
+.disk__button_list:hover {
+  cursor: pointer;
+}
+.disk__button_plates {
+  height: 33px;
+  width: 33px;
+  background-color: #1a1e27;
+  border: none;
+  border-radius: 4px;
+}
+.disk__button_plates:hover {
+  cursor: pointer;
+}
 .disk__buttons {
   display: flex;
   align-items: center;

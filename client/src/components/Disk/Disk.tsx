@@ -5,9 +5,12 @@ import {getFiles, searchFiles, uploadFile} from "../../api/fileApi";
 import './Disk.css'
 import FileList from "./FileList/FileList";
 import PopUp from "../PopUp/PopUp";
-import {popFromStack, setPopUpDisplay} from "../../strore/reducerFile";
+import {popFromStack, setFileListView, setPopUpDisplay} from "../../strore/reducerFile";
 import Uploader from "../Uploader/Uploader";
-import {SortTypeEnum} from "../../type/types";
+import {FileListViewEnum, SortTypeEnum} from "../../type/types";
+
+import listIco from './../../assets/img/list.svg'
+import platesIco from './../../assets/img/plates.svg'
 
 const Disk:React.FC = () => {
 
@@ -72,7 +75,6 @@ const Disk:React.FC = () => {
     if (searchTimeOut !== false) {
       clearTimeout(searchTimeOut)
     }
-
     if (e.target.value !== '') {
       setSearchTimeOut(setTimeout(()=>{
         dispatch(searchFiles(e.target.value))
@@ -80,7 +82,14 @@ const Disk:React.FC = () => {
     } else {
       dispatch(getFiles(currentDir))
     }
+  }
 
+  const onClickButtonList = () => {
+    dispatch(setFileListView(FileListViewEnum.list))
+  }
+
+  const onClickButtonPlates = () => {
+    dispatch(setFileListView(FileListViewEnum.plates))
   }
 
   return (
@@ -94,12 +103,29 @@ const Disk:React.FC = () => {
         <div className="disk__title">
           Disk
         </div>
-        <button
-          className="disk__button_back"
-          onClick={onClickButtonBack}
-        >
-          Back
-        </button>
+        <div className="disk__button_first-row">
+          <button
+            className="disk__button_back"
+            onClick={onClickButtonBack}
+          >
+            Back
+          </button>
+          <div className="disk__buttons_right">
+            <button
+              className="disk__button_list"
+              onClick={onClickButtonList}
+            >
+              <img src={listIco} alt=""/>
+            </button>
+            <button
+              className="disk__button_plates"
+              onClick={onClickButtonPlates}
+            >
+              <img src={platesIco} alt=""/>
+            </button>
+          </div>
+        </div>
+
         <div className="disk__buttons">
           <button
             className="disk__button_create"

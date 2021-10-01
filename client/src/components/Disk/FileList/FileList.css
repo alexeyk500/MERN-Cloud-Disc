@@ -36,6 +36,9 @@
   font-size: 24px;
   justify-content: center;
 }
+.fileList__plates {
+  display: flex;
+}
 .file-enter-active {
   animation: file-enter 500ms forwards;
 }

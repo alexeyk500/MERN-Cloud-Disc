@@ -1,4 +1,4 @@
-import {FileType} from "../type/types";
+import {FileType, FileListViewEnum} from "../type/types";
 
 const SET_FILES = 'SET_FILES';
 type SetFilesType = {
@@ -63,20 +63,32 @@ export const deleteFileAction = (fileId: string): DeleteFileType => {
   return {type: DELETE_FILE, payload: fileId}
 }
 
+export const SET_FILE_VIEW = 'SET_FILE_VIEW';
+type SetFileViewType = {
+  type: typeof SET_FILE_VIEW,
+  payload: FileListViewEnum,
+}
+export const setFileListView = (fileListView: FileListViewEnum): SetFileViewType => {
+  return {type: SET_FILE_VIEW, payload: fileListView}
+}
+
 export type FileActions = SetFilesType | SetCurrentDirType | AddDirType
   | SetPopUpDisplayType | PushToStackType | PopFromStackType | DeleteFileType
+  | SetFileViewType
 
 type DefaultStateType = {
   files: Array<FileType>,
   currentDir: string | null,
   popUpShow: string,
   dirsStack: string[],
+  fileListView: FileListViewEnum,
 }
 const defaultState: DefaultStateType = {
   files: [],
   currentDir: null,
   popUpShow: 'none',
   dirsStack: [],
+  fileListView: FileListViewEnum.list
 }
 
 
@@ -109,9 +121,11 @@ export default function reducerFile(state=defaultState, action: FileActions):Def
         return state
       }
     }
-
     case DELETE_FILE: {
       return {...state, files: [...state.files.filter((file: FileType)=>file._id !== action.payload)]}
+    }
+    case SET_FILE_VIEW: {
+      return {...state, fileListView: action.payload}
     }
 
     default: return state

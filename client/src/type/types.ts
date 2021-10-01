@@ -44,3 +44,8 @@ export enum SortTypeEnum {
   size = 'size',
   date = 'date',
 }
+
+export enum FileListViewEnum {
+  list = 'list',
+  plates = 'plates'
+}
