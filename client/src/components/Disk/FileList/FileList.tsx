@@ -60,21 +60,22 @@ const FileList: React.FC = () => {
           Size
         </div>
       </div>
-      <TransitionGroup>
-        {
-          files.map(file =>
-            <CSSTransition
-              key={file._id}
-              timeout={500}
-              classNames={'file'}
-              exit={false}
-            >
-              <FileItem file={file}/>
-            </CSSTransition>
-          )
-        }
-      </TransitionGroup>
-
+      <div className="fileList__scroll-container">
+          <TransitionGroup>
+            {
+              files.map(file =>
+                <CSSTransition
+                  key={file._id}
+                  timeout={500}
+                  classNames={'file'}
+                  exit={false}
+                >
+                  <FileItem file={file}/>
+                </CSSTransition>
+              )
+            }
+          </TransitionGroup>
+      </div>
     </div>
   );
 }

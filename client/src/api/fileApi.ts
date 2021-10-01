@@ -1,14 +1,27 @@
 import axios from 'axios';
 import {Dispatch} from "redux";
 import {addFile, deleteFileAction, FileActions, SetFiles} from "../strore/reducerFile";
-import {FileType, UploadFileType} from "../type/types";
+import {FileType, SortTypeEnum, UploadFileType} from "../type/types";
 import {addUploadFile, changeUploadFile, setUploaderVisible, UploadActions} from "../strore/reducerUpload";
+import {log} from "util";
 
-export function getFiles(dirId: string | null) {
+export function getFiles(dirId: string | null, sort: SortTypeEnum) {
   return async (dispatch: Dispatch<FileActions>) => {
     try {
+      const baseUrl = `http://localhost:5000/api/files`;
+      let url = baseUrl;
+      if (dirId) {
+        url = baseUrl + `?parent=${dirId}`;
+      }
+      if (sort) {
+        url = baseUrl + `?sort=${sort}`;
+      }
+      if (dirId && dirId) {
+        url = baseUrl + `?parent=${dirId}&sort=${sort}`;
+      }
+      console.log('url', url)
       const response = await axios.get(
-        `http://localhost:5000/api/files${dirId? '?parent='+ dirId :''}`,
+        url,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -57,7 +70,7 @@ export function uploadFile(file: any, dirId: string | null) {
         formData.append('parent', dirId);
       }
 
-      const uploadFile: UploadFileType = {name: file.name, progress: 0, id: Date.now()};
+      const uploadFile: UploadFileType = {name: file.name, progress: 0, id: Date.now() + Math.random() * 1000};
       dispatch(setUploaderVisible(true));
       dispatch(addUploadFile(uploadFile))
 

@@ -1,9 +1,11 @@
 .fileList {
   margin: 32px 0;
+  height: 55%;
 
   &__header {
     display: grid;
     grid-template-columns: 1fr 4fr 1fr 1fr 1fr 1fr;
+    margin-bottom: 16px;
   }
 
   &__name {
@@ -18,6 +20,12 @@
   &__size {
     grid-column-start: 6;
     justify-self: center;
+  }
+
+  &__scroll-container {
+    height: 100%;
+    padding: 0 16px;
+    overflow-y: scroll;
   }
 }
 

@@ -37,3 +37,10 @@ export type UploadFileType = {
   name: string,
   progress: number,
 }
+
+export enum SortTypeEnum {
+  name = 'name',
+  type = 'type',
+  size = 'size',
+  date = 'date',
+}

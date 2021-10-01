@@ -1,9 +1,11 @@
 .fileList {
   margin: 32px 0;
+  height: 55%;
 }
 .fileList__header {
   display: grid;
   grid-template-columns: 1fr 4fr 1fr 1fr 1fr 1fr;
+  margin-bottom: 16px;
 }
 .fileList__name {
   grid-column-start: 2;
@@ -15,6 +17,11 @@
 .fileList__size {
   grid-column-start: 6;
   justify-self: center;
+}
+.fileList__scroll-container {
+  height: 100%;
+  padding: 0 16px;
+  overflow-y: scroll;
 }
 .file-enter-active {
   animation: file-enter 500ms forwards;

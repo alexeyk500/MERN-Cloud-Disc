@@ -1,6 +1,5 @@
 import React from 'react';
 import './Uploader.css'
-import {UploadFileType} from "../../type/types";
 import UploadFile from "./UploadFile/UploadFile";
 import {useDispatch, useSelector} from "react-redux";
 import {StateType} from "../../strore/store";

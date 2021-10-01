@@ -7,6 +7,7 @@ import FileList from "./FileList/FileList";
 import PopUp from "../PopUp/PopUp";
 import {popFromStack, setPopUpDisplay} from "../../strore/reducerFile";
 import Uploader from "../Uploader/Uploader";
+import {SortTypeEnum} from "../../type/types";
 
 const Disk:React.FC = () => {
 
@@ -14,11 +15,12 @@ const Disk:React.FC = () => {
   const currentDir = useSelector((state:StateType) => state.file.currentDir);
 
   const [dragEnter, setDragEnter] = useState<boolean>(false)
+  const [sort, setSort] = useState<SortTypeEnum>(SortTypeEnum.name)
 
   useEffect(()=>{
-    dispatch(getFiles(currentDir))
+    dispatch(getFiles(currentDir, sort))
     // eslint-disable-next-line
-  },[currentDir])
+  },[currentDir, sort])
 
   function onClickButtonCreate() {
     dispatch(setPopUpDisplay('flex'))
@@ -57,6 +59,10 @@ const Disk:React.FC = () => {
     setDragEnter(false);
   }
 
+  const onChangeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSort(e.target.value as SortTypeEnum)
+  }
+
   return (
     !dragEnter?
       <div
@@ -81,6 +87,16 @@ const Disk:React.FC = () => {
           >
             Create Folder
           </button>
+          <select
+            className="disk__select"
+            defaultValue={sort}
+            onChange={onChangeSelect}
+          >
+            <option value={SortTypeEnum.name}>Sort by Name</option>
+            <option value={SortTypeEnum.date}>Sort by Date</option>
+            <option value={SortTypeEnum.size}>Sort by Size</option>
+            <option value={SortTypeEnum.type}>Sort by Type</option>
+          </select>
           <div className="disk__upload">
             <label htmlFor="disk__upload_input" className="disk__upload_label">Load File</label>
             <input
