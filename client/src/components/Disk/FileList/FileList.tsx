@@ -4,10 +4,12 @@ import {useSelector} from "react-redux";
 import {StateType} from "../../../strore/store";
 import FileItem from "./FileItem/FileItem";
 import {TransitionGroup, CSSTransition} from 'react-transition-group'
+import Loader from "../../Loader/Loader";
 
 const FileList: React.FC = () => {
 
   const files = useSelector((state: StateType) => state.file.files)
+  const isLoader = useSelector((state:StateType) => state.app.isLoader);
 
   // const file_1: FileType = {
   //   id: 'id_string',
@@ -47,11 +49,11 @@ const FileList: React.FC = () => {
   // const files = [file_1,file_1 ,file_1 ]
   // console.log('files', files)
 
-  if (files.length === 0) {
-    return (<div className="fileList__empty-folder">
-      Empty folder ...
-    </div>)
-  }
+  // if (files.length === 0) {
+  //   return (<div className="fileList__empty-folder">
+  //     Empty folder ...
+  //   </div>)
+  // }
 
   return (
     <div className="fileList">
@@ -66,21 +68,32 @@ const FileList: React.FC = () => {
           Size
         </div>
       </div>
+
       <div className="fileList__scroll-container">
-          <TransitionGroup>
-            {
-              files.map(file =>
-                <CSSTransition
-                  key={file._id}
-                  timeout={500}
-                  classNames={'file'}
-                  exit={false}
-                >
-                  <FileItem file={file}/>
-                </CSSTransition>
-              )
-            }
-          </TransitionGroup>
+        {
+          isLoader? <div className="fileList__loader">
+            <Loader/>
+          </div>
+          : files.length === 0 ?
+            <div className="fileList__empty-folder">
+              Empty folder ...
+            </div>
+            :
+            <TransitionGroup>
+              {
+                files.map(file =>
+                  <CSSTransition
+                    key={file._id}
+                    timeout={500}
+                    classNames={'file'}
+                    exit={false}
+                  >
+                    <FileItem file={file}/>
+                  </CSSTransition>
+                )
+              }
+            </TransitionGroup>
+        }
       </div>
     </div>
   );

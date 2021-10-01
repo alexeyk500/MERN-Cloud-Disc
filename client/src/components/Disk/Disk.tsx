@@ -1,23 +1,25 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {StateType} from "../../strore/store";
-import {getFiles, uploadFile} from "../../api/fileApi";
+import {getFiles, searchFiles, uploadFile} from "../../api/fileApi";
 import './Disk.css'
 import FileList from "./FileList/FileList";
 import PopUp from "../PopUp/PopUp";
 import {popFromStack, setPopUpDisplay} from "../../strore/reducerFile";
 import Uploader from "../Uploader/Uploader";
 import {SortTypeEnum} from "../../type/types";
-import Loader from "../Loader/Loader";
 
 const Disk:React.FC = () => {
 
   const dispatch = useDispatch();
   const currentDir = useSelector((state:StateType) => state.file.currentDir);
-  const isLoader = useSelector((state:StateType) => state.app.isLoader);
 
   const [dragEnter, setDragEnter] = useState<boolean>(false)
   const [sort, setSort] = useState<SortTypeEnum>(SortTypeEnum.name)
+  const [searchName, setSearchName] = useState<string>('')
+  const [searchTimeOut, setSearchTimeOut] = useState<any>(false)
+
+
 
   useEffect(()=>{
     dispatch(getFiles(currentDir, sort))
@@ -65,12 +67,20 @@ const Disk:React.FC = () => {
     setSort(e.target.value as SortTypeEnum)
   }
 
-  if (isLoader) {
-    return(
-      <div className="disk__loader">
-        <Loader/>
-      </div>
-    )
+  function onChangeSearchName(e: React.ChangeEvent<HTMLInputElement>) {
+    setSearchName(e.target.value)
+    if (searchTimeOut !== false) {
+      clearTimeout(searchTimeOut)
+    }
+
+    if (e.target.value !== '') {
+      setSearchTimeOut(setTimeout(()=>{
+        dispatch(searchFiles(e.target.value))
+      }, 500))
+    } else {
+      dispatch(getFiles(currentDir))
+    }
+
   }
 
   return (
@@ -107,6 +117,13 @@ const Disk:React.FC = () => {
             <option value={SortTypeEnum.size}>Sort by Size</option>
             <option value={SortTypeEnum.type}>Sort by Type</option>
           </select>
+          <input
+            type="text"
+            className="disk__input-find"
+            value={searchName}
+            onChange={onChangeSearchName}
+            placeholder={'Type File Name'}
+          />
           <div className="disk__upload">
             <label htmlFor="disk__upload_input" className="disk__upload_label">Load File</label>
             <input

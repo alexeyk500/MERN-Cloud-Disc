@@ -6,7 +6,7 @@ import {addUploadFile, changeUploadFile, setUploaderVisible, UploadActions} from
 import {hideLoader, showLoader} from "../strore/reducerApp";
 import {AllActions} from "../strore/store";
 
-export function getFiles(dirId: string | null, sort: SortTypeEnum) {
+export function getFiles(dirId: string | null, sort?: SortTypeEnum) {
   return async (dispatch: Dispatch<AllActions>) => {
     try {
       dispatch(showLoader())
@@ -130,19 +130,41 @@ export async function downloadFile (file: FileType) {
 
 export function deleteFile(file: FileType) {
   return async (dispatch: Dispatch<FileActions>) => {
+    axios.delete(
+      `http://localhost:5000/api/files/?id=${file._id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    )
+      .then((response) => {
+        dispatch(deleteFileAction(file._id));
+        alert(response.data.message)
+      })
+      .catch((e) => {
+        console.log(e.response.data.message)
+      })
+  }
+};
+
+export function searchFiles(searchName: string) {
+  return async (dispatch: Dispatch<AllActions>) => {
     try {
-      const response = await axios.delete(
-        `http://localhost:5000/api/files/?id=${file._id}`,
+      dispatch(showLoader())
+      const response = await axios.get(
+        `http://localhost:5000/api/files/search?search=${searchName}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }
         }
       );
-      dispatch(deleteFileAction(file._id));
-      alert(response.data.message)
+      dispatch(SetFiles(response.data))
     } catch (e) {
       console.log(e.response.data.message)
+    } finally {
+      dispatch(hideLoader())
     }
   }
 };
