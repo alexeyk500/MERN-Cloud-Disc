@@ -3,10 +3,13 @@ import {Dispatch} from "redux";
 import {addFile, deleteFileAction, FileActions, SetFiles} from "../strore/reducerFile";
 import {FileType, SortTypeEnum, UploadFileType} from "../type/types";
 import {addUploadFile, changeUploadFile, setUploaderVisible, UploadActions} from "../strore/reducerUpload";
+import {hideLoader, showLoader} from "../strore/reducerApp";
+import {AllActions} from "../strore/store";
 
 export function getFiles(dirId: string | null, sort: SortTypeEnum) {
-  return async (dispatch: Dispatch<FileActions>) => {
+  return async (dispatch: Dispatch<AllActions>) => {
     try {
+      dispatch(showLoader())
       const baseUrl = `http://localhost:5000/api/files`;
       let url = baseUrl;
       if (dirId) {
@@ -29,6 +32,8 @@ export function getFiles(dirId: string | null, sort: SortTypeEnum) {
       dispatch(SetFiles(response.data))
     } catch (e) {
       console.log(e.response.data.message)
+    } finally {
+      dispatch(hideLoader())
     }
   }
 };

@@ -1,6 +1,12 @@
 .disk {
   margin-top: 64px;
 }
+.disk__loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 64px);
+}
 .disk__title {
   font-size: 32px;
   margin-bottom: 32px;

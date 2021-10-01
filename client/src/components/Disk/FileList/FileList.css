@@ -23,6 +23,13 @@
   padding: 0 16px;
   overflow-y: scroll;
 }
+.fileList__empty-folder {
+  display: flex;
+  margin-top: 32px;
+  margin-left: 92px;
+  font-size: 24px;
+  justify-content: center;
+}
 .file-enter-active {
   animation: file-enter 500ms forwards;
 }

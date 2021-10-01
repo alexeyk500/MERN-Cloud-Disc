@@ -8,11 +8,13 @@ import PopUp from "../PopUp/PopUp";
 import {popFromStack, setPopUpDisplay} from "../../strore/reducerFile";
 import Uploader from "../Uploader/Uploader";
 import {SortTypeEnum} from "../../type/types";
+import Loader from "../Loader/Loader";
 
 const Disk:React.FC = () => {
 
   const dispatch = useDispatch();
   const currentDir = useSelector((state:StateType) => state.file.currentDir);
+  const isLoader = useSelector((state:StateType) => state.app.isLoader);
 
   const [dragEnter, setDragEnter] = useState<boolean>(false)
   const [sort, setSort] = useState<SortTypeEnum>(SortTypeEnum.name)
@@ -61,6 +63,14 @@ const Disk:React.FC = () => {
 
   const onChangeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSort(e.target.value as SortTypeEnum)
+  }
+
+  if (isLoader) {
+    return(
+      <div className="disk__loader">
+        <Loader/>
+      </div>
+    )
   }
 
   return (

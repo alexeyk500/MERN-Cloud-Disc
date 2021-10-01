@@ -47,6 +47,12 @@ const FileList: React.FC = () => {
   // const files = [file_1,file_1 ,file_1 ]
   // console.log('files', files)
 
+  if (files.length === 0) {
+    return (<div className="fileList__empty-folder">
+      Empty folder ...
+    </div>)
+  }
+
   return (
     <div className="fileList">
       <div className="fileList__header">
