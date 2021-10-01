@@ -9,6 +9,7 @@ import {pushToStack, setCurrentDir} from "../../../../strore/reducerFile";
 import buttonDownloadIco from './../../../../assets/img/buttonDownloadIco.svg';
 import buttonDeleteIco from './../../../../assets/img/buttonDeleteIco.svg'
 import {deleteFile, downloadFile} from "../../../../api/fileApi";
+import sizeFormat from "../../../../utils/sizeFormat";
 
 type PropsType = {
   file: FileType
@@ -62,7 +63,7 @@ const FileItem:React.FC <PropsType>= ({file}) => {
         {dateStr}
       </div>
       <div className="fileItem__size">
-        {file.size}
+        {sizeFormat(file.size)}
       </div>
       {
         file.type !== 'dir' &&

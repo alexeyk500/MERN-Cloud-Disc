@@ -3,16 +3,11 @@ import './FileList.css'
 import {useSelector} from "react-redux";
 import {StateType} from "../../../strore/store";
 import FileItem from "./FileItem/FileItem";
+import {TransitionGroup, CSSTransition} from 'react-transition-group'
 
 const FileList: React.FC = () => {
 
-  const files = useSelector((state: StateType) => state.file.files).map(
-    file =>
-      <FileItem
-        key={file._id}
-        file={file}
-      />
-  )
+  const files = useSelector((state: StateType) => state.file.files)
 
   // const file_1: FileType = {
   //   id: 'id_string',
@@ -49,7 +44,6 @@ const FileList: React.FC = () => {
   //       key={ind}
   //     />)
   // })
-
   // const files = [file_1,file_1 ,file_1 ]
   // console.log('files', files)
 
@@ -66,7 +60,21 @@ const FileList: React.FC = () => {
           Size
         </div>
       </div>
-      {files}
+      <TransitionGroup>
+        {
+          files.map(file =>
+            <CSSTransition
+              key={file._id}
+              timeout={500}
+              classNames={'file'}
+              exit={false}
+            >
+              <FileItem file={file}/>
+            </CSSTransition>
+          )
+        }
+      </TransitionGroup>
+
     </div>
   );
 }
