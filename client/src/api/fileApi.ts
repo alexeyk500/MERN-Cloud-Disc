@@ -3,7 +3,6 @@ import {Dispatch} from "redux";
 import {addFile, deleteFileAction, FileActions, SetFiles} from "../strore/reducerFile";
 import {FileType, SortTypeEnum, UploadFileType} from "../type/types";
 import {addUploadFile, changeUploadFile, setUploaderVisible, UploadActions} from "../strore/reducerUpload";
-import {log} from "util";
 
 export function getFiles(dirId: string | null, sort: SortTypeEnum) {
   return async (dispatch: Dispatch<FileActions>) => {
@@ -19,7 +18,6 @@ export function getFiles(dirId: string | null, sort: SortTypeEnum) {
       if (dirId && dirId) {
         url = baseUrl + `?parent=${dirId}&sort=${sort}`;
       }
-      console.log('url', url)
       const response = await axios.get(
         url,
         {
