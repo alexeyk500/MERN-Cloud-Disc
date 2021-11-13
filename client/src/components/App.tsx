@@ -6,7 +6,7 @@ import Registration from "./Registration/Registration";
 import Login from "./Login/Login";
 import {useDispatch, useSelector} from "react-redux";
 import {StateType} from "../strore/store";
-import {userAuthApi} from "../api/userApi";
+import {userAuthApiByJWTFromLocalStorage} from "../api/userApi";
 import Disk from "./Disk/Disk";
 
 function App() {
@@ -15,7 +15,10 @@ function App() {
   const isAuth = useSelector((state:StateType) => state.user.isAuth);
 
   useEffect(()=>{
-    dispatch(userAuthApi());
+    if (localStorage.getItem('token')){
+      dispatch(userAuthApiByJWTFromLocalStorage());
+    }
+
     // eslint-disable-next-line
   },[])
 

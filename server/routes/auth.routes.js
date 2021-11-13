@@ -24,7 +24,6 @@ router.post(
       if (!errors.isEmpty()) {
         return res.status(400).json({message: 'Incorrect request', errors})
       }
-
       const {email, password} = req.body;
       console.log('email, password', email, password)
       const candidate = await User.findOne({email})
@@ -51,7 +50,9 @@ router.post(
   async (req, res) => {
     try {
       const {email, password} = req.body;
+      console.log('Try to login - ', 'email=', email, 'password=', password)
       const user = await User.findOne({email});
+      console.log('Login with user - ', user);
 
       if(!user) {
         return res.status(400).json({message: 'User not found'})
@@ -75,7 +76,7 @@ router.post(
       })
     } catch (e) {
       console.log(e)
-      res.send({message: 'Server Error'})
+      res.send({message: 'Server Error with login'})
     }
   });
 

@@ -2,12 +2,12 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 
 module.exports = (req, res, next) => {
+  console.log('запускаю - authMiddleware')
   if (req.method === 'OPTIONS') {
     return next()
   }
 
   try {
-    console.log('req.headers -', req.headers);
     const token = req.headers.authorization.split(' ')[1]
     if (!token) {
       return res.status(401).json({message: 'Auth Error'})

@@ -49,7 +49,7 @@ export const userLoginApi = (email: string, password: string) => {
   }
 };
 
-export const userAuthApi = () => {
+export const userAuthApiByJWTFromLocalStorage = () => {
   return async (dispatch: Dispatch<AllActions>, getState: ()=>StateType) => {
     try {
       const response = await axios.get<LoginResponseType>(
