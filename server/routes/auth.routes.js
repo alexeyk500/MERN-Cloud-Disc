@@ -25,9 +25,7 @@ router.post(
         return res.status(400).json({message: 'Incorrect request', errors})
       }
       const {email, password} = req.body;
-      console.log('email, password', email, password)
       const candidate = await User.findOne({email})
-      console.log('candidate', candidate)
 
       if (candidate) {
         console.log('send - error with status(400)', ` User with email ${email} already exist`)
@@ -50,9 +48,7 @@ router.post(
   async (req, res) => {
     try {
       const {email, password} = req.body;
-      console.log('Try to login - ', 'email=', email, 'password=', password)
       const user = await User.findOne({email});
-      console.log('Login with user - ', user);
 
       if(!user) {
         return res.status(400).json({message: 'User not found'})

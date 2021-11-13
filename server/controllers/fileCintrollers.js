@@ -2,7 +2,8 @@ const fileService = require('./../services/fileService');
 const User = require('./../models/User');
 const File = require('./../models/File');
 const Config = require('config');
-const fs =require('fs');
+const fs = require('fs');
+const uuid = require('uuid')
 
 class FileControllers {
   async createDir(req, res) {
@@ -16,7 +17,8 @@ class FileControllers {
       } else {
         file.path = `${parentFile.path}/${file.name}`;
         await fileService.createDir(file);
-        parentFile.childs.push(file.id);``
+        parentFile.childs.push(file.id);
+        ``
         await parentFile.save()
       }
       await file.save()
@@ -33,22 +35,23 @@ class FileControllers {
       const {parent, sort} = req.query
       switch (sort) {
         case 'name': {
-          files = await File.find({user: req.user.id, parent: parent}).sort({name:1})
+          files = await File.find({user: req.user.id, parent: parent}).sort({name: 1})
           break
         }
         case 'date': {
-          files = await File.find({user: req.user.id, parent: parent}).sort({date:1})
+          files = await File.find({user: req.user.id, parent: parent}).sort({date: 1})
           break
         }
         case 'size': {
-          files = await File.find({user: req.user.id, parent: parent}).sort({size:1})
+          files = await File.find({user: req.user.id, parent: parent}).sort({size: 1})
           break
         }
         case 'type': {
-          files = await File.find({user: req.user.id, parent: req.query.parent}).sort({type:1})
+          files = await File.find({user: req.user.id, parent: req.query.parent}).sort({type: 1})
           break
         }
-        default: files = await File.find({user: req.user.id, parent: req.query.parent})
+        default:
+          files = await File.find({user: req.user.id, parent: req.query.parent})
       }
       return res.json(files)
     } catch (e) {
@@ -82,22 +85,14 @@ class FileControllers {
 
       const type = file.name.split('.').pop();
 
-      // let filePath = file.name
-      // if (parent) {
-      //   filePath = parent.path + '/' + file.name
-      // }
-
       const dbFile = new File({
         name: file.name,
         type,
         size: file.size,
         path: parent?.path,
-        // path: filePath,
         parent: parent?._id,
         user: user._id,
       })
-
-      console.log('dbFile', dbFile)
 
       await dbFile.save();
       await user.save();
@@ -111,9 +106,8 @@ class FileControllers {
 
   async downloadFile(req, res) {
     try {
-      const file = await File.findOne({_id: req.query.id, user:req.user.id});
+      const file = await File.findOne({_id: req.query.id, user: req.user.id});
       const path = fileService.getPath(file)
-      console.log('Try downloadFile - ', '   path = ', path, '     file = ',file, )
       if (fs.existsSync(path)) {
         return res.download(path, file.name)
       }
@@ -121,9 +115,9 @@ class FileControllers {
     } catch (e) {
       return res.status(500).json({message: 'Download file error'})
     }
-  }
+  };
 
-  async deleteFile(req,res) {
+  async deleteFile(req, res) {
     try {
       const file = await File.findOne({_id: req.query.id, user: req.user.id})
       if (!file) {
@@ -133,21 +127,48 @@ class FileControllers {
       await file.remove()
       return res.json({message: 'File was deleted'})
 
-    } catch(e) {
+    } catch (e) {
       return res.status(500).json({message: 'Delete file error'})
     }
-  }
+  };
 
-  async searchFile(req,res) {
+  async searchFile(req, res) {
     try {
       const searchName = req.query.search
-      let files = await File.find({user: req.user.id })
-      files = files.filter(file=>file.name.includes(searchName))
+      let files = await File.find({user: req.user.id})
+      files = files.filter(file => file.name.includes(searchName))
       return res.json(files)
     } catch (e) {
       return res.status(500).json({message: 'Search file error'})
     }
-  }
+  };
+
+  async uploadAvatar(req, res) {
+    try {
+      const file = req.files.file
+      const fileType = file.name.split('.').pop();
+      const user = await User.findById(req.user.id);
+      const avatarName = uuid.v4() + '.' + fileType;
+      file.mv(Config.get('staticPath') + '/' + avatarName);
+      user.avatar = avatarName;
+      await user.save();
+      res.json(user)
+    } catch (e) {
+      return res.status(511).json({message: 'Upload avatar error'})
+    }
+  };
+
+  async deleteAvatar(req, res) {
+    try {
+      const user = await User.findById(req.user.id);
+      fs.unlinkSync(Config.get('staticPath') + '/' + user.avatar)
+      user.avatar = null;
+      await user.save();
+      res.json(user)
+    } catch (e) {
+      return res.status(511).json({message: 'Delete avatar error'})
+    }
+  };
 
 }
 

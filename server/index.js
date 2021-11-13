@@ -13,6 +13,7 @@ const PORT = config.get('serverPort')
 app.use(fileupload({}));
 app.use(corsMiddleware);
 app.use(express.json());
+app.use(express.static('./static'))
 
 app.use('/api/auth', authRouter);
 app.use('/api/files', fileRouter);

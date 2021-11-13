@@ -6,7 +6,9 @@
 .idea
 /.pnp
 .pnp.js
+
 /server/usersFiles
+/server/static
 
 # testing
 /coverage
