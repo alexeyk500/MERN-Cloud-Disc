@@ -6,7 +6,7 @@
 .idea
 /.pnp
 .pnp.js
-/server/UsersFiles
+/server/usersFiles
 
 # testing
 /coverage

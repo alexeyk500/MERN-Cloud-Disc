@@ -1,5 +1,4 @@
 const fs = require('fs');
-const File = require('../models/File');
 const config = require('config')
 
 class FileService {
@@ -21,7 +20,8 @@ class FileService {
   }
 
   getPath(file) {
-    return config.get('filePath') + '/' + file.user + '/' + file.path;
+    console.log('getPath', 'file = ', file)
+    return config.get('filePath') + '/' + file.user._id + '/' + file.path + '/' + file.name;
   }
 
   deleteFile(file) {
