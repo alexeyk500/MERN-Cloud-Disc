@@ -9,7 +9,7 @@ import {LoginResponseType, RegistrationResponseType} from "./responseType";
 export const userRegistrationApi = async (email: string, password: string) => {
   try {
     const response = await axios.post<RegistrationResponseType>(
-      'http://localhost:5000/api/auth/registration',
+      'http://localhost:4000/api/auth/registration',
       {
         email,
         password,
@@ -30,7 +30,7 @@ export const userLoginApi = (email: string, password: string) => {
   return async (dispatch: Dispatch<AllActions>, getState: () => StateType) => {
     try {
       const response = await axios.post<LoginResponseType>(
-        'http://localhost:5000/api/auth/login',
+        'http://localhost:4000/api/auth/login',
         {
           email,
           password,
@@ -53,7 +53,7 @@ export const userAuthApi = () => {
   return async (dispatch: Dispatch<AllActions>, getState: ()=>StateType) => {
     try {
       const response = await axios.get<LoginResponseType>(
-        'http://localhost:5000/api/auth/auth',
+        'http://localhost:4000/api/auth/auth',
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`

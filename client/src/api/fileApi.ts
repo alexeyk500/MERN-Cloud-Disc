@@ -10,7 +10,7 @@ export function getFiles(dirId: string | null, sort?: SortTypeEnum) {
   return async (dispatch: Dispatch<AllActions>) => {
     try {
       dispatch(showLoader())
-      const baseUrl = `http://localhost:5000/api/files`;
+      const baseUrl = `http://localhost:4000/api/files`;
       let url = baseUrl;
       if (dirId) {
         url = baseUrl + `?parent=${dirId}`;
@@ -42,7 +42,7 @@ export function createDir(dirId: string | null, name: string) {
   return async (dispatch: Dispatch<FileActions>) => {
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/files`,
+        `http://localhost:4000/api/files`,
         {
           name,
           // type: FileTypeEnum.dir,
@@ -78,7 +78,7 @@ export function uploadFile(file: any, dirId: string | null) {
       dispatch(addUploadFile(uploadFile))
 
       const response = await axios.post(
-        `http://localhost:5000/api/files/upload`,
+        `http://localhost:4000/api/files/upload`,
         formData,
         {
           headers: {
@@ -107,7 +107,7 @@ export function uploadFile(file: any, dirId: string | null) {
 };
 
 export async function downloadFile (file: FileType) {
-  const response = await fetch(`http://localhost:5000/api/files/download?id=${file._id}`,
+  const response = await fetch(`http://localhost:4000/api/files/download?id=${file._id}`,
     {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -131,7 +131,7 @@ export async function downloadFile (file: FileType) {
 export function deleteFile(file: FileType) {
   return async (dispatch: Dispatch<FileActions>) => {
     axios.delete(
-      `http://localhost:5000/api/files/?id=${file._id}`,
+      `http://localhost:4000/api/files/?id=${file._id}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -153,7 +153,7 @@ export function searchFiles(searchName: string) {
     try {
       dispatch(showLoader())
       const response = await axios.get(
-        `http://localhost:5000/api/files/search?search=${searchName}`,
+        `http://localhost:4000/api/files/search?search=${searchName}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
