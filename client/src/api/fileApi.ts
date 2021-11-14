@@ -87,12 +87,12 @@ export function uploadFile(file: any, dirId: string | null) {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
           },
-          onUploadProgress: progressEvent=>{
+          onUploadProgress: progressEvent => {
             const totalLength = progressEvent.lengthComputable ? progressEvent.total
               : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
             console.log('totalLength =', totalLength)
             if (totalLength) {
-              const progress = Math.round(progressEvent.loaded*100/totalLength)
+              const progress = Math.round(progressEvent.loaded * 100 / totalLength)
               uploadFile.progress = progress
               dispatch(changeUploadFile(uploadFile))
               console.log('progress =', progress)
@@ -109,7 +109,7 @@ export function uploadFile(file: any, dirId: string | null) {
   }
 }
 
-export async function downloadFile (file: FileType) {
+export async function downloadFile(file: FileType) {
   const response = await fetch(`${apiUrl}/api/files/download?id=${file._id}`,
     {
       headers: {
@@ -118,7 +118,7 @@ export async function downloadFile (file: FileType) {
     }
   )
   if (response.status === 200) {
-    response.blob().then((blob)=>{
+    response.blob().then((blob) => {
       const link = document.createElement('a')
       link.href = window.URL.createObjectURL(blob)
       link.download = file.name
@@ -141,9 +141,8 @@ export function deleteFile(file: FileType) {
         }
       }
     )
-      .then((response) => {
+      .then(() => {
         dispatch(deleteFileAction(file._id));
-        alert(response.data.message)
       })
       .catch((e) => {
         console.log(e.response.data.message)

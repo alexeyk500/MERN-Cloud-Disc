@@ -1,7 +1,6 @@
 const fileService = require('./../services/fileService');
 const User = require('./../models/User');
 const File = require('./../models/File');
-const Config = require('config');
 const fs = require('fs');
 const uuid = require('uuid')
 
@@ -13,12 +12,11 @@ class FileControllers {
       const parentFile = await File.findOne({_id: parent});
       if (!parent) {
         file.path = name;
-        await fileService.createDir(file)
+        await fileService.createDir(req, file)
       } else {
         file.path = `${parentFile.path}/${file.name}`;
-        await fileService.createDir(file);
+        await fileService.createDir(req, file);
         parentFile.childs.push(file.id);
-        ``
         await parentFile.save()
       }
       await file.save()
@@ -73,9 +71,9 @@ class FileControllers {
 
       let path;
       if (parent) {
-        path = `${Config.get('filePath')}/${user._id}/${parent.path}/${file.name}`
+        path = `${req.filePath}/${user._id}/${parent.path}/${file.name}`
       } else {
-        path = `${Config.get('filePath')}/${user._id}/${file.name}`
+        path = `${req.filePath}/${user._id}/${file.name}`
       }
 
       if (fs.existsSync(path)) {
@@ -107,7 +105,7 @@ class FileControllers {
   async downloadFile(req, res) {
     try {
       const file = await File.findOne({_id: req.query.id, user: req.user.id});
-      const path = fileService.getPath(file)
+      const path = fileService.getPathToFile(file)
       if (fs.existsSync(path)) {
         return res.download(path, file.name)
       }
@@ -123,7 +121,7 @@ class FileControllers {
       if (!file) {
         res.status(400).json({message: 'File not found'})
       }
-      fileService.deleteFile(file)
+      fileService.deleteFile(req, file)
       await file.remove()
       return res.json({message: 'File was deleted'})
 
@@ -149,7 +147,7 @@ class FileControllers {
       const fileType = file.name.split('.').pop();
       const user = await User.findById(req.user.id);
       const avatarName = uuid.v4() + '.' + fileType;
-      file.mv(Config.get('staticPath') + '/' + avatarName);
+      file.mv(req.staticPath + '/' + avatarName);
       user.avatar = avatarName;
       await user.save();
       res.json(user)
@@ -161,7 +159,7 @@ class FileControllers {
   async deleteAvatar(req, res) {
     try {
       const user = await User.findById(req.user.id);
-      fs.unlinkSync(Config.get('staticPath') + '/' + user.avatar)
+      fs.unlinkSync(req.staticPath + '/' + user.avatar)
       user.avatar = null;
       await user.save();
       res.json(user)

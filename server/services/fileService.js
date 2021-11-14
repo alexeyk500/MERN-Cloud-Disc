@@ -1,31 +1,38 @@
 const fs = require('fs');
-const config = require('config')
 
 class FileService {
 
-  createDir(file) {
-    const filePath = `${config.get('filePath')}/${file.user}/${file.path}`
+  getPathToFile(req, file) {
+    let fullPath = req.filePath + '/' + file.user._id + '/' + file.path
+    if (file.type !== 'dir') {
+      fullPath += '/' + file.name
+    }
+    return fullPath;
+  }
+
+  createDir(req, file) {
+    console.log('req = ', req)
+    console.log('file =', file)
+    const filePath = `${req.filePath}/${file.user}/${file.path}`
     return new Promise((resolve, reject) => {
       try {
         if (!fs.existsSync(filePath)) {
           fs.mkdirSync(filePath)
-          return resolve({message: 'File was created'})
+          return resolve({message: 'Directory was created'})
         } else {
-          return reject({message: 'File already exist'})
+          return reject({message: 'Directory already exist'})
         }
       } catch (e) {
-        return reject({message: 'File Error'})
+        return reject({message: 'Directory create error'})
       }
     })
   }
 
-  getPath(file) {
-    console.log('getPath', 'file = ', file)
-    return config.get('filePath') + '/' + file.user._id + '/' + file.path + '/' + file.name;
-  }
-
-  deleteFile(file) {
-    const path = this.getPath(file)
+  deleteFile(req, file) {
+    console.log('deleteFile - req  = ', req)
+    console.log('deleteFile - file =', file)
+    const path = this.getPathToFile(req, file)
+    console.log('deleteFile - path =', path)
     if (file.type === 'dir') {
       fs.rmdirSync(path)
     } else {

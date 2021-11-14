@@ -7,7 +7,7 @@
 /.pnp
 .pnp.js
 
-/server/usersFiles
+/server/files
 /server/static
 
 # testing

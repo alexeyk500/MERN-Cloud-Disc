@@ -16,15 +16,15 @@ type PropsType = {
   file: FileType
 }
 
-const FileItem:React.FC <PropsType>= ({file}) => {
+const FileItem: React.FC<PropsType> = ({file}) => {
 
   const dispatch = useDispatch()
-  const fileListView = useSelector((state:StateType) => state.file.fileListView);
+  const fileListView = useSelector((state: StateType) => state.file.fileListView);
 
   const date = new Date(file.date).toLocaleDateString('en-GB', {
-    year : 'numeric',
-    month : 'numeric',
-    day : 'numeric',
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
   }).split('/');
 
   [date[0], date[2]] = [date[2], date[0]];
@@ -45,51 +45,53 @@ const FileItem:React.FC <PropsType>= ({file}) => {
 
   function onClickDeleteFile(event: React.MouseEvent) {
     event.stopPropagation();
-    dispatch(deleteFile(file))
+    if (window.confirm(`${file.name} will be delete ?`)) {
+      dispatch(deleteFile(file))
+    }
   }
 
   return (
-    fileListView === FileListViewEnum.list?
-    <div
-      className='fileItem'
-      onClick={onClickFileItem}
-    >
-      <img
-        src={file.type === 'dir'? folderIco :fileIco}
-        className='fileItem__img'
-        alt=""
-      />
-      <div className="fileItem__name">
-        {file.name}
-      </div>
-      <div className="fileItem__date">
-        {dateStr}
-      </div>
-      <div className="fileItem__size">
-        {sizeFormat(file.size)}
-      </div>
-      {
-        file.type !== 'dir' &&
-        <button
-          className="fileItem__btn fileItem__btn_download"
-          onClick={onClickDownload}
-        >
-          <img src={buttonDownloadIco} alt=""/>
-        </button>
-      }
-      <button
-        className="fileItem__btn fileItem__btn_delete"
-        onClick={onClickDeleteFile}
+    fileListView === FileListViewEnum.list ?
+      <div
+        className='fileItem'
+        onClick={onClickFileItem}
       >
-        <img src={buttonDeleteIco} alt=""/>
-      </button>
-    </div>
+        <img
+          src={file.type === 'dir' ? folderIco : fileIco}
+          className='fileItem__img'
+          alt=""
+        />
+        <div className="fileItem__name">
+          {file.name}
+        </div>
+        <div className="fileItem__date">
+          {dateStr}
+        </div>
+        <div className="fileItem__size">
+          {sizeFormat(file.size)}
+        </div>
+        {
+          file.type !== 'dir' &&
+          <button
+            className="fileItem__btn fileItem__btn_download"
+            onClick={onClickDownload}
+          >
+            <img src={buttonDownloadIco} alt=""/>
+          </button>
+        }
+        <button
+          className="fileItem__btn fileItem__btn_delete"
+          onClick={onClickDeleteFile}
+        >
+          <img src={buttonDeleteIco} alt=""/>
+        </button>
+      </div>
       : <div
         className='file-plate-item'
         onClick={onClickFileItem}
       >
         <img
-          src={file.type === 'dir'? folderIco :fileIco}
+          src={file.type === 'dir' ? folderIco : fileIco}
           className='file-plate-item__img'
           alt=""
         />
