@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {StateType} from "../strore/store";
 import {userAuthApiByJWTFromLocalStorage} from "../api/userApi";
 import Disk from "./Disk/Disk";
+import Profile from "./Profile/Profile";
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
           isAuth?
             <Switch>
               <Route exact path='/' component={Disk} />
+              <Route path='/profile' component={Profile} />
               <Redirect to='/'/>
             </Switch>
             : <Switch>

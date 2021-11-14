@@ -26,4 +26,16 @@
 .navbar__registration {
   margin-right: 20px;
 }
+.navbar__container-ico {
+  display: flex;
+  width: 32px;
+  align-items: center;
+  justify-content: center;
+  object-fit: cover;
+}
+.navbar__ico {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
 /*# sourceMappingURL=Navbar.css.map */

@@ -15,7 +15,7 @@ export type FileType = {
 
 export type UserType = {
   email: string,
-  password: string,
+  password?: string,
   diskSpace: number,
   usedSpace: number,
   avatar?: string,

@@ -6,10 +6,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {StateType} from "../../strore/store";
 import {logoutUser} from "../../strore/reducerUser";
 
+import avatarLogo from './../../assets/img/avatarLogo.svg'
+import {apiUrl} from "../../config";
+
 const Navbar:React.FC = () => {
 
   const dispatch = useDispatch();
   const isAuth = useSelector<StateType>(state => state.user.isAuth)
+  const user: any = useSelector<StateType>(state => state.user.currentUser)
 
 
   const onClickLogout = () => {
@@ -46,6 +50,19 @@ const Navbar:React.FC = () => {
           >
               Выйти
           </div>
+        }
+        {
+          isAuth &&
+            <NavLink
+              to={'/profile'}
+              className={'navbar__container-ico'}
+            >
+              <img
+                src={user.avatar ? `${apiUrl}/${user.avatar}` : avatarLogo}
+                className={'navbar__ico'}
+                alt=""
+              />
+            </NavLink>
         }
 
       </div>

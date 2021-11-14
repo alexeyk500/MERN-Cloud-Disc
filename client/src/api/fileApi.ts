@@ -1,16 +1,19 @@
 import axios from 'axios';
 import {Dispatch} from "redux";
 import {addFile, deleteFileAction, FileActions, SetFiles} from "../strore/reducerFile";
-import {FileType, SortTypeEnum, UploadFileType} from "../type/types";
+import {FileType, PopupTypeEnum, SortTypeEnum, UploadFileType, UserType} from "../type/types";
 import {addUploadFile, changeUploadFile, setUploaderVisible, UploadActions} from "../strore/reducerUpload";
 import {hideLoader, showLoader} from "../strore/reducerApp";
 import {AllActions} from "../strore/store";
+import {apiUrl} from "../config";
+import {showPopup} from "../components/CommonComponents/PopupInfo/PopupInfo";
+import {setUser} from "../strore/reducerUser";
 
 export function getFiles(dirId: string | null, sort?: SortTypeEnum) {
   return async (dispatch: Dispatch<AllActions>) => {
     try {
       dispatch(showLoader())
-      const baseUrl = `http://localhost:4000/api/files`;
+      const baseUrl = `${apiUrl}/api/files`;
       let url = baseUrl;
       if (dirId) {
         url = baseUrl + `?parent=${dirId}`;
@@ -36,13 +39,13 @@ export function getFiles(dirId: string | null, sort?: SortTypeEnum) {
       dispatch(hideLoader())
     }
   }
-};
+}
 
 export function createDir(dirId: string | null, name: string) {
   return async (dispatch: Dispatch<FileActions>) => {
     try {
       const response = await axios.post(
-        `http://localhost:4000/api/files`,
+        `${apiUrl}/api/files`,
         {
           name,
           // type: FileTypeEnum.dir,
@@ -62,7 +65,7 @@ export function createDir(dirId: string | null, name: string) {
       console.log(e.response.data.message)
     }
   }
-};
+}
 
 export function uploadFile(file: any, dirId: string | null) {
   return async (dispatch: Dispatch<FileActions | UploadActions>) => {
@@ -78,7 +81,7 @@ export function uploadFile(file: any, dirId: string | null) {
       dispatch(addUploadFile(uploadFile))
 
       const response = await axios.post(
-        `http://localhost:4000/api/files/upload`,
+        `${apiUrl}/api/files/upload`,
         formData,
         {
           headers: {
@@ -104,10 +107,10 @@ export function uploadFile(file: any, dirId: string | null) {
       console.log(e.response.data.message)
     }
   }
-};
+}
 
 export async function downloadFile (file: FileType) {
-  const response = await fetch(`http://localhost:4000/api/files/download?id=${file._id}`,
+  const response = await fetch(`${apiUrl}/api/files/download?id=${file._id}`,
     {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -126,12 +129,12 @@ export async function downloadFile (file: FileType) {
   } else {
     console.log('save file error')
   }
-};
+}
 
 export function deleteFile(file: FileType) {
   return async (dispatch: Dispatch<FileActions>) => {
     axios.delete(
-      `http://localhost:4000/api/files/?id=${file._id}`,
+      `${apiUrl}/api/files/?id=${file._id}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -146,14 +149,14 @@ export function deleteFile(file: FileType) {
         console.log(e.response.data.message)
       })
   }
-};
+}
 
 export function searchFiles(searchName: string) {
   return async (dispatch: Dispatch<AllActions>) => {
     try {
       dispatch(showLoader())
       const response = await axios.get(
-        `http://localhost:4000/api/files/search?search=${searchName}`,
+        `${apiUrl}/api/files/search?search=${searchName}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -167,4 +170,53 @@ export function searchFiles(searchName: string) {
       dispatch(hideLoader())
     }
   }
-};
+}
+
+export const deleteAvatar = () => {
+  return async (dispatch: Dispatch<AllActions>) => {
+    try {
+      const response = await axios.delete<UserType>(
+        `${apiUrl}/api/files/avatar`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        }
+      )
+      dispatch(setUser(response.data))
+    } catch (e) {
+      if (e.message === 'Network Error') {
+        showPopup(PopupTypeEnum.alarm, e.name + ': ' + e.message)
+      } else {
+        console.log(e.response)
+        showPopup(PopupTypeEnum.alarm, e.response.data.message)
+      }
+    }
+  }
+}
+
+export const uploadAvatar = (file: File) => {
+  return async (dispatch: Dispatch<AllActions>) => {
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+      const response = await axios.post<UserType>(
+        `${apiUrl}/api/files/avatar`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        }
+      )
+      dispatch(setUser(response.data))
+    } catch (e) {
+      if (e.message === 'Network Error') {
+        showPopup(PopupTypeEnum.alarm, e.name + ': ' + e.message)
+      } else {
+        console.log(e.response)
+        showPopup(PopupTypeEnum.alarm, e.response.data.message)
+      }
+    }
+  }
+}
