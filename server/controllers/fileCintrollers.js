@@ -87,8 +87,8 @@ class FileControllers {
         name: file.name,
         type,
         size: file.size,
-        path: parent?.path,
-        parent: parent?._id,
+        path: parent ? parent.path : null,
+        parent: parent ? parent._id : null,
         user: user._id,
       })
 
