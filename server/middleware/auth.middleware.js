@@ -12,11 +12,10 @@ module.exports = (req, res, next) => {
     if (!token) {
       return res.status(401).json({message: 'Auth Error'})
     }
-    const decoded = jwt.verify(token, config.get('secretKey'))
-    req.user = decoded
+    req.user = jwt.verify(token, config.get('secretKey'))
     next()
   } catch (e) {
-      return res.status(401).json({message: 'Auth Middleware Error'})
+    return res.status(401).json({message: 'Auth Middleware Error'})
   }
 
 }

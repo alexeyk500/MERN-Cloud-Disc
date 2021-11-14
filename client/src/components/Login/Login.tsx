@@ -5,7 +5,7 @@ import './Login.css';
 import {userLoginApi} from "../../api/userApi";
 import {useDispatch} from "react-redux";
 
-const Login:React.FC = () => {
+const Login: React.FC = () => {
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -25,15 +25,15 @@ const Login:React.FC = () => {
         </div>
         <div className={'login__container_input'}>
           <Input
-            value = {email}
-            onChange = {setEmail}
+            value={email}
+            onChange={setEmail}
             type={InputTypeEnum.text}
             placeholder={'email ...'}
             customClassName='login__input_email'
           />
           <Input
-            value = {password}
-            onChange = {setPassword}
+            value={password}
+            onChange={setPassword}
             type={InputTypeEnum.password}
             placeholder={'password ...'}
             customClassName={'login__input_password'}

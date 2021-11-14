@@ -12,34 +12,32 @@ import {FileListViewEnum, SortTypeEnum} from "../../type/types";
 import listIco from './../../assets/img/list.svg'
 import platesIco from './../../assets/img/plates.svg'
 
-const Disk:React.FC = () => {
+const Disk: React.FC = () => {
 
   const dispatch = useDispatch();
-  const currentDir = useSelector((state:StateType) => state.file.currentDir);
+  const currentDir = useSelector((state: StateType) => state.file.currentDir);
 
   const [dragEnter, setDragEnter] = useState<boolean>(false)
   const [sort, setSort] = useState<SortTypeEnum>(SortTypeEnum.name)
   const [searchName, setSearchName] = useState<string>('')
   const [searchTimeOut, setSearchTimeOut] = useState<any>(false)
 
-
-
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(getFiles(currentDir, sort))
     // eslint-disable-next-line
-  },[currentDir, sort])
+  }, [currentDir, sort])
 
   function onClickButtonCreate() {
     dispatch(setPopUpDisplay('flex'))
   }
 
   function onClickButtonBack() {
-      dispatch(popFromStack());
+    dispatch(popFromStack());
   }
 
   function onChangeInputFile(event: React.ChangeEvent<any>) {
     const files = [...event.target.files]
-    files.forEach(file=>{
+    files.forEach(file => {
       dispatch(uploadFile(file, currentDir))
     })
   }
@@ -60,7 +58,7 @@ const Disk:React.FC = () => {
     event.preventDefault();
     event.stopPropagation();
     const files = Array.from(event.dataTransfer.files)
-    files.forEach(file=>{
+    files.forEach(file => {
       dispatch(uploadFile(file, currentDir))
     })
     setDragEnter(false);
@@ -76,7 +74,7 @@ const Disk:React.FC = () => {
       clearTimeout(searchTimeOut)
     }
     if (e.target.value !== '') {
-      setSearchTimeOut(setTimeout(()=>{
+      setSearchTimeOut(setTimeout(() => {
         dispatch(searchFiles(e.target.value))
       }, 500))
     } else {
@@ -93,7 +91,7 @@ const Disk:React.FC = () => {
   }
 
   return (
-    !dragEnter?
+    !dragEnter ?
       <div
         className='disk'
         onDragEnter={onDragEnter}
@@ -161,11 +159,11 @@ const Disk:React.FC = () => {
             />
           </div>
         </div>
-        <FileList />
-        <PopUp />
-        <Uploader />
+        <FileList/>
+        <PopUp/>
+        <Uploader/>
       </div>
-      :<div
+      : <div
         className="drag_area"
         onDragEnter={onDragEnter}
         onDragLeave={onDragLeave}

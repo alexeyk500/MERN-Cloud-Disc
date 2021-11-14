@@ -13,32 +13,32 @@ import Profile from "./Profile/Profile";
 function App() {
 
   const dispatch = useDispatch();
-  const isAuth = useSelector((state:StateType) => state.user.isAuth);
+  const isAuth = useSelector((state: StateType) => state.user.isAuth);
 
-  useEffect(()=>{
-    if (localStorage.getItem('token')){
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
       dispatch(userAuthApiByJWTFromLocalStorage());
     }
 
     // eslint-disable-next-line
-  },[])
+  }, [])
 
   return (
     <div className='app'>
       <Navbar/>
       <div className='mainContainer'>
         {
-          isAuth?
+          isAuth ?
             <Switch>
-              <Route exact path='/' component={Disk} />
-              <Route path='/profile' component={Profile} />
+              <Route exact path='/' component={Disk}/>
+              <Route path='/profile' component={Profile}/>
               <Redirect to='/'/>
             </Switch>
             : <Switch>
-                <Route path='/registration' component={Registration} />
-                <Route path='/login' component={Login} />
-                <Redirect to='/login'/>
-              </Switch>
+              <Route path='/registration' component={Registration}/>
+              <Route path='/login' component={Login}/>
+              <Redirect to='/login'/>
+            </Switch>
         }
 
       </div>
