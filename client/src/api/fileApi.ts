@@ -90,18 +90,14 @@ export function uploadFile(file: any, dirId: string | null) {
           onUploadProgress: progressEvent => {
             const totalLength = progressEvent.lengthComputable ? progressEvent.total
               : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
-            console.log('totalLength =', totalLength)
             if (totalLength) {
-              const progress = Math.round(progressEvent.loaded * 100 / totalLength)
-              uploadFile.progress = progress
+              uploadFile.progress = Math.round(progressEvent.loaded * 100 / totalLength)
               dispatch(changeUploadFile(uploadFile))
-              console.log('progress =', progress)
             }
           }
         }
       );
       dispatch(addFile(response.data));
-      console.log('file upload =', response.data)
 
     } catch (e) {
       console.log(e.response.data.message)
