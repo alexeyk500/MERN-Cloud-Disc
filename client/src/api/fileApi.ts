@@ -59,7 +59,6 @@ export function createDir(dirId: string | null, name: string) {
         }
       );
       dispatch(addFile(response.data));
-      console.log('createDir response =', response.data)
 
     } catch (e) {
       console.log(e.response.data.message)

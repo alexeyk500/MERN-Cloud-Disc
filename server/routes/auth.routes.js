@@ -28,7 +28,6 @@ router.post(
       const candidate = await User.findOne({email})
 
       if (candidate) {
-        console.log('send - error with status(400)', ` User with email ${email} already exist`)
         return res.status(400).json({message: `User with email ${email} already exist`})
       }
 
@@ -49,7 +48,6 @@ router.post(
     try {
       const {email, password} = req.body;
       const user = await User.findOne({email});
-      console.log('user -', user)
 
       if (!user) {
         return res.status(400).json({message: 'User not found'})

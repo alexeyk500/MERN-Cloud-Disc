@@ -11,8 +11,6 @@ class FileService {
   }
 
   createDir(req, file) {
-    console.log('req = ', req)
-    console.log('file =', file)
     const filePath = `${req.filePath}/${file.user}/${file.path}`
     return new Promise((resolve, reject) => {
       try {
@@ -29,10 +27,7 @@ class FileService {
   }
 
   deleteFile(req, file) {
-    console.log('deleteFile - req  = ', req)
-    console.log('deleteFile - file =', file)
     const path = this.getPathToFile(req, file)
-    console.log('deleteFile - path =', path)
     if (file.type === 'dir') {
       fs.rmdirSync(path)
     } else {

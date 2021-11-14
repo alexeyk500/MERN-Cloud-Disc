@@ -24,7 +24,6 @@ type SetPopUpDisplayType = {
   payload: string
 }
 export const setPopUpDisplay = (popUpShow: string): SetPopUpDisplayType => {
-  console.log('setPopUpDisplay')
   return {type: SET_POPUP_DISPLAY, payload: popUpShow}
 }
 
